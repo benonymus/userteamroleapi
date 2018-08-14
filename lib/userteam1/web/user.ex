@@ -17,6 +17,6 @@ defmodule Userteam1.Web.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :password, :role_id, :team_id])
-    |> validate_required([:name, :password, :role_id, :team_id])
+    |> validate_required([:name, :password, :role_id])
   end
 end

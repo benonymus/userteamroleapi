@@ -14,7 +14,11 @@
 
   <li>
     <strong>Team:</strong>
+    <%= if !@user.team do %>
+    no team set
+    <% else %>
     <%= @user.team.name %>
+    <% end %>
   </li>
 
   <li>

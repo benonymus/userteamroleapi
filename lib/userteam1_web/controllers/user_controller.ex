@@ -16,6 +16,9 @@ defmodule Userteam1Web.UserController do
       Repo.all(Userteam1.Team)
       |> Enum.map(&{&1.name, &1.id})
 
+    # to have emtpy option for the user
+    teams = [{"", ""} | teams]
+
     roles =
       Repo.all(Userteam1.Role)
       |> Enum.map(&{&1.name, &1.id})
@@ -43,7 +46,6 @@ defmodule Userteam1Web.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Web.get_user!(id)
-    IO.inspect(user)
     render(conn, "show.html", user: user)
   end
 
@@ -51,6 +53,9 @@ defmodule Userteam1Web.UserController do
     teams =
       Repo.all(Userteam1.Team)
       |> Enum.map(&{&1.name, &1.id})
+
+    # to have emtpy option for the user
+    teams = [{"", ""} | teams]
 
     roles =
       Repo.all(Userteam1.Role)
