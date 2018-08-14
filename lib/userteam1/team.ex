@@ -4,7 +4,7 @@ defmodule Userteam1.Team do
 
   schema "teams" do
     field(:name, :string)
-    has_many(:users, Userteam1.User)
+    has_many(:users, Userteam1.User, on_delete: :nilify_all)
     timestamps()
   end
 

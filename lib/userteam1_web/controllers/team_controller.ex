@@ -20,6 +20,7 @@ defmodule Userteam1Web.TeamController do
         conn
         |> put_flash(:info, "Team created successfully.")
         |> redirect(to: team_path(conn, :show, team))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +45,7 @@ defmodule Userteam1Web.TeamController do
         conn
         |> put_flash(:info, "Team updated successfully.")
         |> redirect(to: team_path(conn, :show, team))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", team: team, changeset: changeset)
     end
@@ -51,10 +53,24 @@ defmodule Userteam1Web.TeamController do
 
   def delete(conn, %{"id" => id}) do
     team = Web.get_team!(id)
-    {:ok, _team} = Web.delete_team(team)
 
-    conn
-    |> put_flash(:info, "Team deleted successfully.")
-    |> redirect(to: team_path(conn, :index))
+    case Web.delete_team(team) do
+      {:ok, _team} ->
+        IO.puts("succ")
+
+        conn
+        |> put_flash(:info, "Team deleted successfully.")
+        |> redirect(to: team_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        IO.puts("SHIT")
+        # render(conn, "edit.html", team: team, changeset: changeset)
+    end
+
+    # {:ok, _team} = Web.delete_team(team)
+    #
+    # conn
+    # |> put_flash(:info, "Team deleted successfully.")
+    # |> redirect(to: team_path(conn, :index))
   end
 end
