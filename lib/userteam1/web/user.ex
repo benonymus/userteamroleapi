@@ -18,5 +18,6 @@ defmodule Userteam1.Web.User do
     user
     |> cast(attrs, [:name, :password, :role_id, :team_id])
     |> validate_required([:name, :password, :role_id])
+    |> unique_constraint(:name)
   end
 end

@@ -5,7 +5,6 @@ defmodule Userteam1.Web.Team do
   schema "teams" do
     field(:name, :string)
     has_many(:users, Userteam1.User, on_delete: :nilify_all)
-
     timestamps()
   end
 
@@ -14,5 +13,6 @@ defmodule Userteam1.Web.Team do
     team
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:name)
   end
 end

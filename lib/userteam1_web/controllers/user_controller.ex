@@ -76,6 +76,7 @@ defmodule Userteam1Web.UserController do
         |> redirect(to: user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        IO.puts("xd")
         render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
