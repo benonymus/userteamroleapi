@@ -30,6 +30,14 @@ defmodule Userteam1Web.UserController do
   def create(conn, %{"user" => user_params}) do
     IO.inspect(user_params)
 
+    teams =
+      Repo.all(Userteam1.Team)
+      |> Enum.map(&{&1.name, &1.id})
+
+    roles =
+      Repo.all(Userteam1.Role)
+      |> Enum.map(&{&1.name, &1.id})
+
     case Web.create_user(user_params) do
       {:ok, user} ->
         IO.inspect(user)
@@ -40,7 +48,7 @@ defmodule Userteam1Web.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.puts("shit")
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, teams: teams, roles: roles)
     end
   end
 
@@ -69,6 +77,17 @@ defmodule Userteam1Web.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Web.get_user!(id)
 
+    teams =
+      Repo.all(Userteam1.Team)
+      |> Enum.map(&{&1.name, &1.id})
+
+    roles =
+      Repo.all(Userteam1.Role)
+      |> Enum.map(&{&1.name, &1.id})
+
+    # to have emtpy option for the user
+    teams = [{"", ""} | teams]
+
     case Web.update_user(user, user_params) do
       {:ok, user} ->
         conn
@@ -77,7 +96,7 @@ defmodule Userteam1Web.UserController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         IO.puts("xd")
-        render(conn, "edit.html", user: user, changeset: changeset)
+        render(conn, "edit.html", user: user, changeset: changeset, teams: teams, roles: roles)
     end
   end
 
