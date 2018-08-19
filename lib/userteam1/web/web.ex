@@ -4,9 +4,46 @@ defmodule Userteam1.Web do
   """
 
   import Ecto.Query, warn: false
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   alias Userteam1.Repo
-
+  alias Userteam1.Guardian
   alias Userteam1.Web.User
+
+  ## Returns an user based on its name
+  def get_by_name(name) when is_binary(name) do
+    case Repo.get_by(User, name: name) do
+      nil ->
+        dummy_checkpw()
+        {:error, "Login error."}
+
+      user ->
+        {:ok, user}
+    end
+  end
+
+  # Compares if password match with hashed one
+  defp verify_password(password, %User{} = user) when is_binary(password) do
+    if checkpw(password, user.password_hash) do
+      {:ok, user}
+    else
+      {:error, :invalid_password}
+    end
+  end
+
+  def name_password_auth(name, password) when is_binary(name) and is_binary(password) do
+    with {:ok, user} <- get_by_name(name),
+         do: verify_password(password, user)
+  end
+
+  def token_sign_in(name, password) do
+    case name_password_auth(name, password) do
+      {:ok, user} ->
+        Guardian.encode_and_sign(user)
+
+      _ ->
+        {:error, :unauthorized}
+    end
+  end
 
   @doc """
   Returns the list of users.

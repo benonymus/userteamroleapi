@@ -1,7 +1,6 @@
 defmodule Userteam1Web.UserController do
   use Userteam1Web, :controller
   alias Userteam1.Repo
-
   alias Userteam1.Web
   alias Userteam1.Web.User
 
