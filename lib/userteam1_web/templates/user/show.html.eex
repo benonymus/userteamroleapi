@@ -9,7 +9,11 @@
 
   <li>
     <strong>Password:</strong>
-    <%= @user.password %>
+    <%= if !@user.password_hash do %>
+    no password set!
+    <% else %>
+    password is set!
+    <% end %>
   </li>
 
   <li>

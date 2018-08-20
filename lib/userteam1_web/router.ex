@@ -13,11 +13,23 @@ defmodule Userteam1Web.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :jwt_authenticated do
+    plug(
+      Guardian.Plug.Pipeline,
+      module: Userteam1.Guardian,
+      error_handler: Userteam1Web.ApiAuthHandler
+    )
+
+    plug(Guardian.Plug.VerifyHeader, realm: "Bearer")
+    plug(Guardian.Plug.EnsureAuthenticated)
+    plug(Guardian.Plug.LoadResource)
+  end
+
   pipeline :browser_session do
     plug(
       Guardian.Plug.Pipeline,
       module: Userteam1.Guardian,
-      error_handler: Userteam1.AuthErrorHandler
+      error_handler: Userteam1Web.AuthErrorHandler
     )
 
     plug(Guardian.Plug.VerifySession)
@@ -26,6 +38,13 @@ defmodule Userteam1Web.Router do
 
   pipeline :auth do
     plug(Guardian.Plug.EnsureAuthenticated, handler: Userteam1.AuthHandler)
+  end
+
+  scope "/", Userteam1Web do
+    # Use the default browser stack
+    pipe_through(:browser)
+
+    resources("/", SessionController, only: [:index, :create, :delete])
   end
 
   scope "/admin", Userteam1Web do
@@ -37,11 +56,14 @@ defmodule Userteam1Web.Router do
     resources("/roles", RoleController)
   end
 
-  scope "/", Userteam1Web do
-    # Use the default browser stack
-    pipe_through(:browser)
+  scope "/api", Userteam1Web do
+    pipe_through(:api)
+    post("/sign_in", ApiUserController, :sign_in)
+  end
 
-    resources("/", SessionController, only: [:index, :create, :delete])
+  scope "/api", Userteam1Web do
+    pipe_through([:api, :jwt_authenticated])
+    get("/user", ApiUserController, :show)
   end
 
   # Other scopes may use custom stacks.

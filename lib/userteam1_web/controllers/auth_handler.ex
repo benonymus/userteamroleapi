@@ -1,4 +1,4 @@
-defmodule Userteam1.AuthHandler do
+defmodule Userteam1Web.AuthHandler do
   use Userteam1Web, :controller
 
   def unauthenticated(conn, _params) do
