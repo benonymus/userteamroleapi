@@ -7,7 +7,13 @@ defmodule Userteam1Web.ApiUserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id, name: user.name, password_hash: user.password_hash, team: user.team.name}
+    %{
+      id: user.id,
+      name: user.name,
+      password_hash: user.password_hash,
+      team: user.team.name,
+      score: user.score
+    }
   end
 
   def render("userjwt.json", %{user: user, jwt: jwt}) do

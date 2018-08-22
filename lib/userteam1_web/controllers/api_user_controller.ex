@@ -1,6 +1,7 @@
 defmodule Userteam1Web.ApiUserController do
   use Userteam1Web, :controller
 
+  alias Userteam1.Web
   alias Userteam1.Web.User
 
   def sign_in(conn, %{"name" => name, "password" => password}) do
@@ -24,13 +25,13 @@ defmodule Userteam1Web.ApiUserController do
     conn |> render("user.json", user: user)
   end
 
-  # def update(conn, %{"id" => id, "user" => user_params}) do
-  #   current_user = Guardian.Plug.current_resource(conn)
-  #   user = Accounts.get_user!(id)
-  #
-  #   with :ok <- user_type(current_user, user),
-  #        {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
-  #     render(conn, "show.json", user: user)
-  #   end
-  # end
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    # current_user = Guardian.Plug.current_resource(conn)
+    user = Web.get_user!(id)
+
+    case Web.update_user(user, user_params) do
+      {:ok, user} ->
+        render(conn, "user.json", user: user)
+    end
+  end
 end

@@ -45,6 +45,9 @@ defmodule Userteam1Web.Router do
     pipe_through(:browser)
 
     resources("/", SessionController, only: [:index, :create, :delete])
+    resources("/teams", TeamController)
+    resources("/users", UserController)
+    resources("/roles", RoleController)
   end
 
   scope "/admin", Userteam1Web do
@@ -64,6 +67,9 @@ defmodule Userteam1Web.Router do
   scope "/api", Userteam1Web do
     pipe_through([:api, :jwt_authenticated])
     get("/user", ApiUserController, :show)
+    put("/user", ApiUserController, :update)
+    get("/team", ApiTeamController, :show)
+    put("/team", ApiTeamController, :update)
   end
 
   # Other scopes may use custom stacks.

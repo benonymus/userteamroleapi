@@ -8,6 +8,7 @@ defmodule Userteam1.Web.User do
     field(:name, :string)
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
+    field(:score, :integer, default: 0)
     belongs_to(:role, Userteam1.Role)
     belongs_to(:team, Userteam1.Team)
     timestamps()
