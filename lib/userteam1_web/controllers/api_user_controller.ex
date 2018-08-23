@@ -22,7 +22,8 @@ defmodule Userteam1Web.ApiUserController do
 
   def show(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
-    conn |> render("user.json", user: user)
+    team_score = Userteam1Web.ApiTeamController.get_team_score(user)
+    conn |> render("user_with_team_score.json", user: user, team_score: team_score)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do

@@ -17,7 +17,7 @@ defmodule Userteam1.Web.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :password, :role_id, :team_id])
+    |> cast(attrs, [:name, :password, :role_id, :team_id, :score])
     |> validate_required([:name, :role_id])
     |> unique_constraint(:name)
     |> put_password_hash
