@@ -12,6 +12,9 @@
       <li>
         <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
       </li>
+      <li>
+        <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
+      </li>
     </ul>
   </div>
 </div>

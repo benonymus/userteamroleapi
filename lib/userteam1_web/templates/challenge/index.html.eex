@@ -1,0 +1,34 @@
+<div>
+<span><%= link "Users Page", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
+<span><%= link "Teams Page", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
+</div>
+<h2>Listing Challenges</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Difficulty</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for challenge <- @challenges do %>
+    <tr>
+      <td><%= challenge.name %></td>
+      <td><%= challenge.description %></td>
+      <td><%= challenge.difficulty %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: challenge_path(@conn, :show, challenge), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: challenge_path(@conn, :edit, challenge), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: challenge_path(@conn, :delete, challenge), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Challenge", to: challenge_path(@conn, :new) %></span>

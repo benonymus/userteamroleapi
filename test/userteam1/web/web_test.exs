@@ -184,4 +184,68 @@ defmodule Userteam1.WebTest do
       assert %Ecto.Changeset{} = Web.change_role(role)
     end
   end
+
+  describe "challenges" do
+    alias Userteam1.Web.Challenge
+
+    @valid_attrs %{description: "some description", difficulty: 42, name: "some name"}
+    @update_attrs %{description: "some updated description", difficulty: 43, name: "some updated name"}
+    @invalid_attrs %{description: nil, difficulty: nil, name: nil}
+
+    def challenge_fixture(attrs \\ %{}) do
+      {:ok, challenge} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Web.create_challenge()
+
+      challenge
+    end
+
+    test "list_challenges/0 returns all challenges" do
+      challenge = challenge_fixture()
+      assert Web.list_challenges() == [challenge]
+    end
+
+    test "get_challenge!/1 returns the challenge with given id" do
+      challenge = challenge_fixture()
+      assert Web.get_challenge!(challenge.id) == challenge
+    end
+
+    test "create_challenge/1 with valid data creates a challenge" do
+      assert {:ok, %Challenge{} = challenge} = Web.create_challenge(@valid_attrs)
+      assert challenge.description == "some description"
+      assert challenge.difficulty == 42
+      assert challenge.name == "some name"
+    end
+
+    test "create_challenge/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Web.create_challenge(@invalid_attrs)
+    end
+
+    test "update_challenge/2 with valid data updates the challenge" do
+      challenge = challenge_fixture()
+      assert {:ok, challenge} = Web.update_challenge(challenge, @update_attrs)
+      assert %Challenge{} = challenge
+      assert challenge.description == "some updated description"
+      assert challenge.difficulty == 43
+      assert challenge.name == "some updated name"
+    end
+
+    test "update_challenge/2 with invalid data returns error changeset" do
+      challenge = challenge_fixture()
+      assert {:error, %Ecto.Changeset{}} = Web.update_challenge(challenge, @invalid_attrs)
+      assert challenge == Web.get_challenge!(challenge.id)
+    end
+
+    test "delete_challenge/1 deletes the challenge" do
+      challenge = challenge_fixture()
+      assert {:ok, %Challenge{}} = Web.delete_challenge(challenge)
+      assert_raise Ecto.NoResultsError, fn -> Web.get_challenge!(challenge.id) end
+    end
+
+    test "change_challenge/1 returns a challenge changeset" do
+      challenge = challenge_fixture()
+      assert %Ecto.Changeset{} = Web.change_challenge(challenge)
+    end
+  end
 end

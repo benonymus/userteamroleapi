@@ -1,0 +1,23 @@
+<h2>Show Challenge</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @challenge.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @challenge.description %>
+  </li>
+
+  <li>
+    <strong>Difficulty:</strong>
+    <%= @challenge.difficulty %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: challenge_path(@conn, :edit, @challenge) %></span>
+<span><%= link "Back", to: challenge_path(@conn, :index) %></span>
