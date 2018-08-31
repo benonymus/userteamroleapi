@@ -12,14 +12,14 @@ defmodule Userteam1Web.UserController do
 
   def new(conn, _params) do
     teams =
-      Repo.all(Userteam1.Team)
+      Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
 
     # to have emtpy option for the user
     teams = [{"", ""} | teams]
 
     roles =
-      Repo.all(Userteam1.Role)
+      Repo.all(Userteam1.Web.Role)
       |> Enum.map(&{&1.name, &1.id})
 
     changeset = Web.change_user(%User{})
@@ -30,11 +30,11 @@ defmodule Userteam1Web.UserController do
     IO.inspect(user_params)
 
     teams =
-      Repo.all(Userteam1.Team)
+      Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
 
     roles =
-      Repo.all(Userteam1.Role)
+      Repo.all(Userteam1.Web.Role)
       |> Enum.map(&{&1.name, &1.id})
 
     case Web.create_user(user_params) do
@@ -58,14 +58,14 @@ defmodule Userteam1Web.UserController do
 
   def edit(conn, %{"id" => id}) do
     teams =
-      Repo.all(Userteam1.Team)
+      Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
 
     # to have emtpy option for the user
     teams = [{"", ""} | teams]
 
     roles =
-      Repo.all(Userteam1.Role)
+      Repo.all(Userteam1.Web.Role)
       |> Enum.map(&{&1.name, &1.id})
 
     user = Web.get_user!(id)
@@ -77,11 +77,11 @@ defmodule Userteam1Web.UserController do
     user = Web.get_user!(id)
 
     teams =
-      Repo.all(Userteam1.Team)
+      Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
 
     roles =
-      Repo.all(Userteam1.Role)
+      Repo.all(Userteam1.Web.Role)
       |> Enum.map(&{&1.name, &1.id})
 
     # to have emtpy option for the user
