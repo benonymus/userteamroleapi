@@ -6,7 +6,6 @@ defmodule Userteam1.Web.Challenge do
     field(:name, :string)
     field(:description, :string)
     field(:difficulty, :integer, default: 1)
-
     timestamps()
   end
 

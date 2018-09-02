@@ -46,8 +46,8 @@ defmodule Userteam1Web.Router do
 
     resources("/", SessionController, only: [:index, :create, :delete])
     # resources("/teams", TeamController)
-    # resources("/users", UserController)
-    # resources("/roles", RoleController)
+    resources("/users", UserController)
+    resources("/roles", RoleController)
     # resources("/challenges", ChallengeController)
   end
 
@@ -73,6 +73,7 @@ defmodule Userteam1Web.Router do
     get("/team", ApiTeamController, :show)
     put("/team", ApiTeamController, :update)
     get("/challenges", ApiChallengeController, :index)
+    resources("/recordings", RecordingController)
   end
 
   # Other scopes may use custom stacks.

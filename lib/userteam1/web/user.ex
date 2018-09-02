@@ -11,6 +11,8 @@ defmodule Userteam1.Web.User do
     field(:score, :integer, default: 0)
     belongs_to(:role, Userteam1.Web.Role)
     belongs_to(:team, Userteam1.Web.Team)
+    has_many(:recording, Userteam1.Web.Recording)
+
     timestamps()
   end
 

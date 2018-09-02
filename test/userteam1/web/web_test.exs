@@ -248,4 +248,64 @@ defmodule Userteam1.WebTest do
       assert %Ecto.Changeset{} = Web.change_challenge(challenge)
     end
   end
+
+  describe "recordings" do
+    alias Userteam1.Web.Recording
+
+    @valid_attrs %{path_to_recording: "some path_to_recording"}
+    @update_attrs %{path_to_recording: "some updated path_to_recording"}
+    @invalid_attrs %{path_to_recording: nil}
+
+    def recording_fixture(attrs \\ %{}) do
+      {:ok, recording} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Web.create_recording()
+
+      recording
+    end
+
+    test "list_recordings/0 returns all recordings" do
+      recording = recording_fixture()
+      assert Web.list_recordings() == [recording]
+    end
+
+    test "get_recording!/1 returns the recording with given id" do
+      recording = recording_fixture()
+      assert Web.get_recording!(recording.id) == recording
+    end
+
+    test "create_recording/1 with valid data creates a recording" do
+      assert {:ok, %Recording{} = recording} = Web.create_recording(@valid_attrs)
+      assert recording.path_to_recording == "some path_to_recording"
+    end
+
+    test "create_recording/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Web.create_recording(@invalid_attrs)
+    end
+
+    test "update_recording/2 with valid data updates the recording" do
+      recording = recording_fixture()
+      assert {:ok, recording} = Web.update_recording(recording, @update_attrs)
+      assert %Recording{} = recording
+      assert recording.path_to_recording == "some updated path_to_recording"
+    end
+
+    test "update_recording/2 with invalid data returns error changeset" do
+      recording = recording_fixture()
+      assert {:error, %Ecto.Changeset{}} = Web.update_recording(recording, @invalid_attrs)
+      assert recording == Web.get_recording!(recording.id)
+    end
+
+    test "delete_recording/1 deletes the recording" do
+      recording = recording_fixture()
+      assert {:ok, %Recording{}} = Web.delete_recording(recording)
+      assert_raise Ecto.NoResultsError, fn -> Web.get_recording!(recording.id) end
+    end
+
+    test "change_recording/1 returns a recording changeset" do
+      recording = recording_fixture()
+      assert %Ecto.Changeset{} = Web.change_recording(recording)
+    end
+  end
 end
