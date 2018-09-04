@@ -3,8 +3,8 @@ defmodule Userteam1Web.ApiUserView do
   alias Userteam1Web.ApiUserView
   alias Userteam1Web.RecordingView
 
-  def render("show.json", %{user: user}) do
-    %{data: render_one(user, ApiUserView, "user.json")}
+  def render("index.json", %{users: users}) do
+    %{data: render_many(users, ApiUserView, "user.json", as: :user)}
   end
 
   def render("user.json", %{user: user}) do
@@ -22,13 +22,19 @@ defmodule Userteam1Web.ApiUserView do
     }
   end
 
+  def render("team_member.json", %{user: user}) do
+    %{
+      id: user.id,
+      name: user.name,
+      score: user.score
+    }
+  end
+
   def render("user_with_team_score.json", %{
         user: user,
         team_score: team_score,
         recording_list: recording_list
       }) do
-    IO.inspect(recording_list)
-
     %{
       id: user.id,
       name: user.name,

@@ -6,7 +6,6 @@ defmodule Userteam1Web.UserController do
 
   def index(conn, _params) do
     users = Web.list_users()
-    IO.inspect(users)
     render(conn, "index.html", users: users)
   end
 

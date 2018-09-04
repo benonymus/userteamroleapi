@@ -20,6 +20,11 @@ defmodule Userteam1Web.ApiUserController do
     end
   end
 
+  def index(conn, _params) do
+    users = Web.list_users()
+    render(conn, "index.json", users: users)
+  end
+
   def show(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     team_score = Userteam1Web.ApiTeamController.get_team_score(user)
