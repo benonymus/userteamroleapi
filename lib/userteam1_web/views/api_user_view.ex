@@ -4,7 +4,28 @@ defmodule Userteam1Web.ApiUserView do
   alias Userteam1Web.RecordingView
 
   def render("index.json", %{users: users}) do
-    %{data: render_many(users, ApiUserView, "user.json", as: :user)}
+    %{data: render_many(users, ApiUserView, "user_with_mod_score.json", as: :user)}
+  end
+
+  def render("user_with_mod_score.json", %{user: user}) do
+    %{
+      name: user.name,
+      num_of_recordings: user.num_of_recordings,
+      mod_score:
+        if List.first(user.mod_score) == nil do
+          0
+        else
+          List.first(user.mod_score) / user.num_of_recordings
+        end
+    }
+  end
+
+  def render("user_with_done.json", %{user: user}) do
+    %{
+      id: user.id,
+      name: user.name,
+      done: user.done
+    }
   end
 
   def render("user.json", %{user: user}) do
@@ -33,7 +54,8 @@ defmodule Userteam1Web.ApiUserView do
   def render("user_with_team_score.json", %{
         user: user,
         team_score: team_score,
-        recording_list: recording_list
+        recording_list: recording_list,
+        mod_score_sum: mod_score_sum
       }) do
     %{
       id: user.id,
@@ -47,7 +69,13 @@ defmodule Userteam1Web.ApiUserView do
         end,
       score: user.score,
       team_score: team_score,
-      recording_list: render_many(recording_list, RecordingView, "recording.json", as: :recording)
+      recording_list:
+        if is_nil(recording_list) do
+          "no recordings"
+        else
+          render_many(recording_list, RecordingView, "recording.json", as: :recording)
+        end,
+      mod_score_sum: mod_score_sum
     }
   end
 

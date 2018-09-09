@@ -11,14 +11,21 @@ defmodule Userteam1Web.SessionController do
       {:ok, user} ->
         IO.inspect(user)
 
-        conn
-        |> put_flash(:info, "Successfully signed in")
-        |> Guardian.Plug.sign_in(user)
-        |> redirect(to: page_path(conn, :index))
+        # change the ud to the super admin's id prob 3
+        if user.role_id == 1 do
+          conn
+          |> put_flash(:info, "Successfully signed in!")
+          |> Guardian.Plug.sign_in(user)
+          |> redirect(to: page_path(conn, :index))
+        else
+          conn
+          |> put_flash(:error, "No permission for this user!")
+          |> render("new.html")
+        end
 
       {:error, _reason} ->
         conn
-        |> put_flash(:error, "Invalid name or password")
+        |> put_flash(:error, "Invalid name or password!")
         |> render("new.html")
     end
   end

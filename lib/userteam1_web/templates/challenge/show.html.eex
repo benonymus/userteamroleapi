@@ -13,6 +13,11 @@
   </li>
 
   <li>
+    <strong>Due date:</strong>
+    <%= @challenge.due_date %>
+  </li>
+
+  <li>
     <strong>Difficulty:</strong>
     <%= @challenge.difficulty %>
   </li>

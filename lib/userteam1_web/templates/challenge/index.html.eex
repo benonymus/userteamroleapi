@@ -9,6 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Due Date</th>
       <th>Difficulty</th>
 
       <th></th>
@@ -19,6 +20,7 @@
     <tr>
       <td><%= challenge.name %></td>
       <td><%= challenge.description %></td>
+      <td><%= challenge.due_date %></td>
       <td><%= challenge.difficulty %></td>
 
       <td class="text-right">

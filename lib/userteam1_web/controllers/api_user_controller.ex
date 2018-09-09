@@ -3,6 +3,10 @@ defmodule Userteam1Web.ApiUserController do
 
   alias Userteam1.Web
   alias Userteam1.Web.User
+  alias Userteam1Web.ApiTeamController
+  alias Userteam1Web.RecordingController
+
+  action_fallback(Userteam1Web.FallbackController)
 
   def sign_in(conn, %{"name" => name, "password" => password}) do
     case Userteam1.Web.token_sign_in(name, password) do
@@ -22,20 +26,34 @@ defmodule Userteam1Web.ApiUserController do
 
   def index(conn, _params) do
     users = Web.list_users()
-    render(conn, "index.json", users: users)
+
+    users_with_scores =
+      for user <- users do
+        %{
+          name: user.name,
+          mod_score: RecordingController.get_mod_score_sum(user),
+          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+        }
+      end
+
+    IO.inspect(users_with_scores)
+
+    render(conn, "index.json", users: users_with_scores)
   end
 
   def show(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
-    team_score = Userteam1Web.ApiTeamController.get_team_score(user)
-    recording_list = Userteam1Web.RecordingController.get_recording_list(user)
+    team_score = ApiTeamController.get_team_score(user.team)
+    recording_list = RecordingController.get_recording_list(user)
+    mod_score_sum = RecordingController.get_mod_score_sum(user)
 
     conn
     |> render(
       "user_with_team_score.json",
       user: user,
       team_score: team_score,
-      recording_list: recording_list
+      recording_list: recording_list,
+      mod_score_sum: mod_score_sum
     )
   end
 

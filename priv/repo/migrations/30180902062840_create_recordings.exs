@@ -4,8 +4,9 @@ defmodule Userteam1.Repo.Migrations.CreateRecordings do
   def change do
     create table(:recordings) do
       add(:path_to_recording, :string)
-      add(:challenge_id, :integer)
+      add(:mod_score, :integer)
       add(:user_id, references(:users))
+      add(:challenge_id, references(:challenges))
       timestamps()
     end
 

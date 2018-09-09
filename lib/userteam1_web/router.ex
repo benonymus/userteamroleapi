@@ -45,10 +45,10 @@ defmodule Userteam1Web.Router do
     pipe_through(:browser)
 
     resources("/", SessionController, only: [:index, :create, :delete])
-    # resources("/teams", TeamController)
+    resources("/teams", TeamController)
     resources("/users", UserController)
     resources("/roles", RoleController)
-    # resources("/challenges", ChallengeController)
+    resources("/challenges", ChallengeController)
   end
 
   scope "/admin", Userteam1Web do
@@ -75,7 +75,10 @@ defmodule Userteam1Web.Router do
     get("/team", ApiTeamController, :show)
     put("/team", ApiTeamController, :update)
     get("/challenges", ApiChallengeController, :index)
+    post("/team_progress", ApiChallengeController, :team_progres)
     resources("/recordings", RecordingController)
+    put("/recordings", RecordingController, :update)
+    resources("/comments", CommentController)
   end
 
   # Other scopes may use custom stacks.

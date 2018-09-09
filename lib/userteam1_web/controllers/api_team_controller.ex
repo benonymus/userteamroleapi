@@ -5,10 +5,11 @@ defmodule Userteam1Web.ApiTeamController do
   alias Userteam1.Repo
   alias Userteam1.Web
   alias Userteam1.Web.User
+  alias Userteam1Web.RecordingController
 
-  def get_team_score(user) do
-    team = Web.get_team!(user.team.id)
+  action_fallback(Userteam1Web.FallbackController)
 
+  def get_team_score(team) do
     score_query =
       from(
         u in User,
@@ -20,29 +21,45 @@ defmodule Userteam1Web.ApiTeamController do
   end
 
   def get_team_members(team) do
-    score_query =
+    members_query =
       from(
         u in User,
         where: u.team_id == ^team.id,
         select: u
       )
 
-    Repo.all(score_query)
+    Repo.all(members_query)
   end
 
   def index(conn, _params) do
     teams = Web.list_teams()
-    render(conn, "index.json", teams: teams)
+
+    teams_with_scores =
+      for team <- teams do
+        %{name: team.name, team_score: get_team_score(team)}
+      end
+
+    IO.inspect(teams_with_scores)
+
+    render(conn, "index.json", teams: teams_with_scores)
   end
 
   def show(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     team = Web.get_team!(user.team.id)
-    team_score = get_team_score(user)
+    team_score = get_team_score(team)
     team_members = get_team_members(team)
-    IO.inspect(team_members)
+    team_recordings = RecordingController.get_recording_list_by_team_members(team_members)
+    IO.inspect(team_recordings)
 
-    conn |> render("team.json", team: team, team_score: team_score, team_members: team_members)
+    conn
+    |> render(
+      "team.json",
+      team: team,
+      team_score: team_score,
+      team_members: team_members,
+      team_recordings: team_recordings
+    )
   end
 
   def update(conn, %{"id" => id, "team" => team_params}) do
