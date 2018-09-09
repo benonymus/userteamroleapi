@@ -75,6 +75,9 @@ defmodule Userteam1Web.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Web.get_user!(id)
 
+    IO.puts("heehxd")
+    IO.inspect(user_params)
+
     teams =
       Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})

@@ -1,5 +1,6 @@
 defmodule Userteam1.Web.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
   import Comeonin.Bcrypt, only: [hashpwsalt: 1]
@@ -9,6 +10,7 @@ defmodule Userteam1.Web.User do
     field(:password_hash, :string)
     field(:password, :string, virtual: true)
     field(:score, :integer, default: 0)
+    field(:avatar, Userteam1Web.Avatar.Type)
     belongs_to(:role, Userteam1.Web.Role)
     belongs_to(:team, Userteam1.Web.Team)
     has_many(:recording, Userteam1.Web.Recording)
@@ -24,6 +26,7 @@ defmodule Userteam1.Web.User do
     |> validate_required([:name, :role_id])
     |> unique_constraint(:name)
     |> put_password_hash
+    |> cast_attachments(attrs, [:avatar])
   end
 
   defp put_password_hash(changeset) do

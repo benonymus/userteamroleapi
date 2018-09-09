@@ -20,7 +20,7 @@ defmodule Userteam1.Mixfile do
   def application do
     [
       mod: {Userteam1.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto]
     ]
   end
 
@@ -44,6 +44,8 @@ defmodule Userteam1.Mixfile do
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:guardian, "~> 1.1"},
+      {:arc, "~> 0.10.0"},
+      {:arc_ecto, "~> 0.10.0"},
       {:distillery, "~> 2.0"}
     ]
   end

@@ -4,6 +4,7 @@ defmodule Userteam1.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add(:name, :string)
+      add(:avatar, :string)
       add(:password_hash, :string)
       add(:score, :integer)
       add(:role_id, references(:roles))

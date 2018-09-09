@@ -24,7 +24,8 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
-      done: user.done
+      done: user.done,
+      avatar: render_image_url(user)
     }
   end
 
@@ -39,7 +40,8 @@ defmodule Userteam1Web.ApiUserView do
         else
           user.team.name
         end,
-      score: user.score
+      score: user.score,
+      avatar: render_image_url(user)
     }
   end
 
@@ -47,7 +49,8 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
-      score: user.score
+      score: user.score,
+      avatar: render_image_url(user)
     }
   end
 
@@ -75,7 +78,8 @@ defmodule Userteam1Web.ApiUserView do
         else
           render_many(recording_list, RecordingView, "recording.json", as: :recording)
         end,
-      mod_score_sum: mod_score_sum
+      mod_score_sum: mod_score_sum,
+      avatar: render_image_url(user)
     }
   end
 
@@ -85,5 +89,13 @@ defmodule Userteam1Web.ApiUserView do
 
   def render("jwt.json", %{jwt: jwt}) do
     %{token: jwt}
+  end
+
+  def render_image_url(user) do
+    if user.avatar != nil do
+      Userteam1Web.Avatar.url({user.avatar, user}, :original)
+    else
+      nil
+    end
   end
 end
