@@ -42,7 +42,7 @@ defmodule Userteam1Web.Router do
 
   scope "/", Userteam1Web do
     # Use the default browser stack
-    pipe_through(:browser)
+    # pipe_through(:browser)
 
     resources("/", SessionController, only: [:index, :create, :delete])
     resources("/teams", TeamController)
