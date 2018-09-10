@@ -76,6 +76,7 @@ defmodule Userteam1Web.UserController do
     user = Web.get_user!(id)
 
     IO.puts("heehxd")
+    IO.inspect(conn)
     IO.inspect(user_params)
 
     teams =

@@ -60,6 +60,7 @@ defmodule Userteam1Web.ApiUserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     # current_user = Guardian.Plug.current_resource(conn)
     user = Web.get_user!(id)
+    IO.inspect(conn)
     IO.inspect(user_params)
 
     case Web.update_user(user, user_params) do
