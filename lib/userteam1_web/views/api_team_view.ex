@@ -12,7 +12,7 @@ defmodule Userteam1Web.ApiTeamView do
     %{
       # id: team.id,
       name: team.name,
-      team_score: team.team_score
+      team_score: List.first(team.team_score)
     }
   end
 
@@ -25,7 +25,7 @@ defmodule Userteam1Web.ApiTeamView do
     %{
       id: team.id,
       name: team.name,
-      team_score: team_score,
+      team_score: List.first(team_score),
       team_members: render_many(team_members, ApiUserView, "team_member.json", as: :user),
       team_recordings:
         if team_recordings == nil do

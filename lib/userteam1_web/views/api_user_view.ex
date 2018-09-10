@@ -71,14 +71,19 @@ defmodule Userteam1Web.ApiUserView do
           user.team.name
         end,
       score: user.score,
-      team_score: team_score,
+      team_score: List.first(team_score),
       recording_list:
         if is_nil(recording_list) do
           "no recordings"
         else
           render_many(recording_list, RecordingView, "recording.json", as: :recording)
         end,
-      mod_score_sum: mod_score_sum,
+      mod_score_sum:
+        if List.first(mod_score_sum) == nil do
+          0
+        else
+          List.first(mod_score_sum)
+        end,
       avatar: render_image_url(user)
     }
   end
