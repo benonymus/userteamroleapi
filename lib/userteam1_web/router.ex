@@ -64,6 +64,17 @@ defmodule Userteam1Web.Router do
   scope "/api", Userteam1Web do
     pipe_through(:api)
     post("/sign_in", ApiUserController, :sign_in)
+    get("/users", ApiUserController, :index)
+    get("/user", ApiUserController, :show)
+    put("/user", ApiUserController, :update)
+    get("/teams", ApiTeamController, :index)
+    get("/team", ApiTeamController, :show)
+    put("/team", ApiTeamController, :update)
+    get("/challenges", ApiChallengeController, :index)
+    post("/team_progress", ApiChallengeController, :team_progres)
+    resources("/recordings", RecordingController)
+    put("/recordings", RecordingController, :update)
+    resources("/comments", CommentController)
   end
 
   scope "/api", Userteam1Web do
