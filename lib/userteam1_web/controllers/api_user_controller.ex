@@ -61,22 +61,9 @@ defmodule Userteam1Web.ApiUserController do
     # current_user = Guardian.Plug.current_resource(conn)
     IO.puts("update hit")
     IO.inspect(user_params)
-
-    test_params = %{
-      "avatar" => %Plug.Upload{
-        content_type: "image/jpeg",
-        filename: "ConceptArt_SneakySneaky_011 (2).jpg",
-        path: "/tmp/plug-1536/multipart-1536643366-594696545916483-1"
-      }
-    }
-
-    IO.inspect(test_params)
-
-    # xd = Poison.Parser.parse!()
-    # IO.inspect(xd)
     user = Web.get_user!(id)
 
-    case Web.update_user(user, test_params) do
+    case Web.update_user(user, user_params) do
       {:ok, user} ->
         render(conn, "user.json", user: user)
     end

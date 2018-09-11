@@ -64,7 +64,6 @@ defmodule Userteam1Web.Router do
   scope "/api", Userteam1Web do
     pipe_through(:api)
     post("/sign_in", ApiUserController, :sign_in)
-    put("/user", ApiUserController, :update)
   end
 
   scope "/api", Userteam1Web do
