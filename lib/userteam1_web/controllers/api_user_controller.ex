@@ -66,7 +66,7 @@ defmodule Userteam1Web.ApiUserController do
     IO.inspect(xd)
     user = Web.get_user!(id)
 
-    case Web.update_user(user, user_params) do
+    case Web.update_user(user, xd) do
       {:ok, user} ->
         render(conn, "user.json", user: user)
     end
