@@ -60,8 +60,9 @@ defmodule Userteam1Web.ApiUserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     # current_user = Guardian.Plug.current_resource(conn)
     IO.puts("update hit")
-    IO.inspect(conn)
     IO.inspect(user_params)
+    xd = Poison.decode!(~s(user_params))
+    IO.inspect(xd)
     user = Web.get_user!(id)
 
     case Web.update_user(user, user_params) do
