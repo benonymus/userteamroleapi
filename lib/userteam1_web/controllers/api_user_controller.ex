@@ -61,7 +61,7 @@ defmodule Userteam1Web.ApiUserController do
     # current_user = Guardian.Plug.current_resource(conn)
     IO.puts("update hit")
     IO.inspect(user_params)
-    xd = Poison.decode!(~s(user_params))
+    xd = Poison.Parser.parse!(user_params)
     IO.inspect(xd)
     user = Web.get_user!(id)
 
