@@ -70,6 +70,8 @@ defmodule Userteam1Web.ApiUserController do
       }
     }
 
+    IO.inspect(test_params)
+
     # xd = Poison.Parser.parse!()
     # IO.inspect(xd)
     user = Web.get_user!(id)
