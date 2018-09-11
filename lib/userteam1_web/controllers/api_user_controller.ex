@@ -24,6 +24,12 @@ defmodule Userteam1Web.ApiUserController do
     end
   end
 
+  def validate(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+    token = Guardian.encode_and_sign(user)
+    conn |> render("userjwt.json", %{user: user, jwt: token})
+  end
+
   def index(conn, _params) do
     users = Web.list_users()
 
