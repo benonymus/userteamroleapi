@@ -26,8 +26,11 @@ defmodule Userteam1Web.ApiUserController do
   end
 
   def validate(conn, _params) do
+    IO.inspect(conn)
     user = Guardian.Plug.current_resource(conn)
-    token = Guardian.encode_and_sign(user)
+    IO.inspect(user)
+    user2 = Poison.decode!(user)
+    token = Guardian.encode_and_sign(user2)
     conn |> render("userjwt.json", %{user: user, jwt: token})
   end
 
