@@ -62,6 +62,8 @@ defmodule Userteam1Web.ApiUserController do
     IO.puts("update hit")
     IO.inspect(conn)
     IO.inspect(user_params)
+    pic = Base.decode64!(user_params.avatar)
+    IO.inspect(pic)
     user = Web.get_user!(id)
 
     case Web.update_user(user, user_params) do
