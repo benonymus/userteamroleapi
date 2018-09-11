@@ -62,6 +62,7 @@ defmodule Userteam1Web.ApiUserController do
     IO.puts("update hit")
     IO.inspect(user_params)
     xd = Poison.Parser.parse!(user_params)
+    xd.avatar = Plug.Upload(xd.avatar)
     IO.inspect(xd)
     user = Web.get_user!(id)
 
