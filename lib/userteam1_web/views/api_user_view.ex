@@ -53,11 +53,12 @@ defmodule Userteam1Web.ApiUserView do
     }
   end
 
-  def render("user_with_team_score.json", %{
+  def render("user_with_scores.json", %{
         user: user,
         team_score: team_score,
         recording_list: recording_list,
-        mod_score_sum: mod_score_sum
+        mod_score_sum: mod_score_sum,
+        num_of_recordings: num_of_recordings
       }) do
     %{
       id: user.id,
@@ -82,7 +83,8 @@ defmodule Userteam1Web.ApiUserView do
         else
           List.first(mod_score_sum)
         end,
-      avatar: render_image_url(user)
+      avatar: render_image_url(user),
+      num_of_recordings: num_of_recordings
     }
   end
 

@@ -52,14 +52,16 @@ defmodule Userteam1Web.ApiUserController do
     team_score = ApiTeamController.get_team_score(user.team)
     recording_list = RecordingController.get_recording_list(user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
+    num_of_recordings = length(RecordingController.get_recording_list_scored(user))
 
     conn
     |> render(
-      "user_with_team_score.json",
+      "user_with_scores.json",
       user: user,
       team_score: team_score,
       recording_list: recording_list,
-      mod_score_sum: mod_score_sum
+      mod_score_sum: mod_score_sum,
+      num_of_recordings: num_of_recordings
     )
   end
 
