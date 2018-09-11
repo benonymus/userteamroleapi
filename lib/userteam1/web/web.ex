@@ -38,6 +38,8 @@ defmodule Userteam1.Web do
   def token_sign_in(name, password) do
     case name_password_auth(name, password) do
       {:ok, user} ->
+        IO.puts("token_sign_in")
+        IO.inspect(user)
         Guardian.encode_and_sign(user)
 
       _ ->
