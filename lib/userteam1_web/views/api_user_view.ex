@@ -49,7 +49,6 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
-      score: user.score,
       avatar: render_image_url(user)
     }
   end
@@ -70,7 +69,6 @@ defmodule Userteam1Web.ApiUserView do
         else
           user.team.name
         end,
-      score: user.score,
       team_score: List.first(team_score),
       recording_list:
         if is_nil(recording_list) do

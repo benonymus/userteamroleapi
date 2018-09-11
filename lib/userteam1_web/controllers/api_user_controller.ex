@@ -5,6 +5,7 @@ defmodule Userteam1Web.ApiUserController do
   alias Userteam1.Web.User
   alias Userteam1Web.ApiTeamController
   alias Userteam1Web.RecordingController
+  alias Userteam1.Guardian
 
   action_fallback(Userteam1Web.FallbackController)
 
