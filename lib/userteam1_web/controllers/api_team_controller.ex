@@ -50,14 +50,24 @@ defmodule Userteam1Web.ApiTeamController do
     team_score = get_team_score(team)
     team_members = get_team_members(team)
     team_recordings = RecordingController.get_recording_list_by_team_members(team_members)
-    IO.inspect(team_recordings)
+
+    users_for_display =
+      for user <- team_members do
+        %{
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          mod_score_sum: RecordingController.get_mod_score_sum(user),
+          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+        }
+      end
 
     conn
     |> render(
       "team.json",
       team: team,
       team_score: team_score,
-      team_members: team_members,
+      team_members: users_for_display,
       team_recordings: team_recordings
     )
   end

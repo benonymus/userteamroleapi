@@ -49,7 +49,14 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
-      avatar: render_image_url(user)
+      avatar: render_image_url(user),
+      num_of_recordings: user.num_of_recordings,
+      mod_score_sum:
+        if List.first(user.mod_score_sum) == nil do
+          0
+        else
+          List.first(user.mod_score_sum)
+        end
     }
   end
 
