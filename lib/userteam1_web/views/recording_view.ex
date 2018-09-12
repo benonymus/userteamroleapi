@@ -29,7 +29,8 @@ defmodule Userteam1Web.RecordingView do
           "no comments yet"
         else
           render_many(recording.comment, CommentView, "comment.json")
-        end
+        end,
+      number_of_comments: length(recording.comment)
     }
   end
 end
