@@ -111,7 +111,7 @@ defmodule Userteam1Web.RecordingController do
   #   render(conn, "index.json", recordings: recordings)
   # end
 
-  def create(conn, %{"path_to_recording" => recording_params}) do
+  def create(conn, %{"id" => id}) do
     IO.puts("conn")
     IO.inspect(conn)
 
