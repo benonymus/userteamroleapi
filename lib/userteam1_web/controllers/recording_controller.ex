@@ -112,6 +112,9 @@ defmodule Userteam1Web.RecordingController do
   # end
 
   def create(conn, %{"path_to_recording" => recording_params}) do
+    IO.puts("conn")
+    IO.inspect(conn)
+
     with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
       challenge = Web.get_challenge!(recording.challenge_id)
       number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)

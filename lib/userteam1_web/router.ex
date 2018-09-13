@@ -10,7 +10,7 @@ defmodule Userteam1Web.Router do
   end
 
   pipeline :api do
-    plug(:accepts, ["json", "multipart", "urlencoded"])
+    plug(:accepts, ["json"])
   end
 
   pipeline :jwt_authenticated do
