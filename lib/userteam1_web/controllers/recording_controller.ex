@@ -119,6 +119,7 @@ defmodule Userteam1Web.RecordingController do
       recording: recording_params.data._parts.recording
     }
 
+    IO.puts("paramsx")
     IO.puts(paramsx)
 
     with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
