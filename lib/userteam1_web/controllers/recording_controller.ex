@@ -111,28 +111,28 @@ defmodule Userteam1Web.RecordingController do
   #   render(conn, "index.json", recordings: recordings)
   # end
 
-  def create(conn, %{"id" => id}) do
+  def create(conn, %{"path_to_recording" => recording_params}) do
     IO.puts("conn")
     IO.inspect(conn)
 
-    # with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
-    #   challenge = Web.get_challenge!(recording.challenge_id)
-    #   number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
-    #   calculated_score = number_of_days_between * challenge.difficulty * 100
-    #   user = Web.get_user!(recording.user_id)
-    #   IO.inspect(user)
-    #   score_to_insert = user.score + calculated_score
-    #
-    #   updated_user = %{
-    #     score: score_to_insert
-    #   }
-    #
-    #   Web.update_user(user, updated_user)
-    send_resp(conn, 200, [])
-    # conn
-    # |> put_status(:created)
-    # |> render("show.json", recording: recording)
-    # end
+    with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
+      challenge = Web.get_challenge!(recording.challenge_id)
+      number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
+      calculated_score = number_of_days_between * challenge.difficulty * 100
+      user = Web.get_user!(recording.user_id)
+      IO.inspect(user)
+      score_to_insert = user.score + calculated_score
+
+      updated_user = %{
+        score: score_to_insert
+      }
+
+      Web.update_user(user, updated_user)
+      send_resp(conn, 200, [])
+      # conn
+      # |> put_status(:created)
+      # |> render("show.json", recording: recording)
+    end
   end
 
   def show(conn, %{"id" => id}) do
