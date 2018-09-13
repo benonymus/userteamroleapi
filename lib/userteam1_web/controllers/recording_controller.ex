@@ -111,17 +111,7 @@ defmodule Userteam1Web.RecordingController do
   #   render(conn, "index.json", recordings: recordings)
   # end
 
-  def create(conn, %{"recording" => recording_params}) do
-    paramsx = %{
-      challenge_id: recording_params.data._parts.recording_params.challenge_id,
-      user_id: recording_params.data._parts.recording_params.user_id,
-      mod_score: recording_params.data._parts.recording_params.mod_score,
-      recording: recording_params.data._parts.recording
-    }
-
-    IO.puts("paramsx")
-    IO.puts(paramsx)
-
+  def create(conn, %{"path_to_recording" => recording_params}) do
     with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
       challenge = Web.get_challenge!(recording.challenge_id)
       number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
