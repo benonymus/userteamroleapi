@@ -30,11 +30,6 @@
     <%= @user.role.name %>
   </li>
 
-  <li>
-    <strong>Avatar:</strong>
-    <img src="<%= Userteam1Web.Avatar.url({@user.avatar, @user}) %>"/>
-  </li>
-
 </ul>
 
 <span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
