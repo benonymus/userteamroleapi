@@ -23,10 +23,10 @@ defmodule Userteam1.Web.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :password, :role_id, :team_id, :score])
+    |> cast_attachments(attrs, [:avatar])
     |> validate_required([:name, :role_id])
     |> unique_constraint(:name)
     |> put_password_hash
-    |> cast_attachments(attrs, [:avatar])
   end
 
   defp put_password_hash(changeset) do

@@ -22,6 +22,11 @@
     <%= @challenge.difficulty %>
   </li>
 
+  <li>
+    <strong>Avatar:</strong>
+    <img src="<%= Userteam1Web.ChallengeAvatar.url({@challenge.avatar, @challenge}) %>"/>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: challenge_path(@conn, :edit, @challenge) %></span>
