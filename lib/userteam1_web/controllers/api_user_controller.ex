@@ -53,9 +53,6 @@ defmodule Userteam1Web.ApiUserController do
     recording_list = RecordingController.get_recording_list(user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
     num_of_recordings = length(RecordingController.get_recording_list_scored(user))
-    IO.pust("recording stuff")
-    IO.inspect(num_of_recordings)
-    IO.inspect(RecordingController.get_recording_list_scored(user))
 
     conn
     |> render(
