@@ -17,7 +17,8 @@ defmodule Userteam1Web.ApiChallengeView do
         else
           challenge.description
         end,
-      difficulty: challenge.difficulty
+      difficulty: challenge.difficulty,
+      avatar: render_image_url(user)
     }
   end
 
@@ -29,5 +30,13 @@ defmodule Userteam1Web.ApiChallengeView do
       team_progress_percentage: team_progress_percentage,
       users: render_many(users, ApiUserView, "user_with_done.json", as: :user)
     }
+  end
+end
+
+def render_image_url(challenge) do
+  if user.avatar != nil do
+    Userteam1Web.ChallengeAvatar.url({challenge.avatar, challenge}, :original)
+  else
+    nil
   end
 end
