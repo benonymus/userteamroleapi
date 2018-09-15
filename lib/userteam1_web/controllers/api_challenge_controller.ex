@@ -7,8 +7,43 @@ defmodule Userteam1Web.ApiChallengeController do
   action_fallback(Userteam1Web.FallbackController)
 
   def index(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+    recording_list = RecordingController.get_recording_list(user)
+    recordings_user_ids = Enum.map(recording_list, fn recording -> recording.user_id end)
     challenges = Web.list_challenges()
-    render(conn, "index.json", challenges: challenges)
+
+    today = Date.utc_today()
+    IO.inspect(today)
+
+    challenges_to_display =
+      for challenge <- challenges do
+        %{
+          id: challenge.id,
+          name: challenge.name,
+          description:
+            if challenge.description == nil do
+              "no description"
+            else
+              challenge.description
+            end,
+          difficulty: challenge.difficulty,
+          avatar: challenge.avatar,
+          days_left:
+            if challenge.due_date >= today do
+              Date.diff(challenge.due_date, today)
+            else
+              -1
+            end,
+          done_by_user:
+            if user.id in recordings_user_ids do
+              true
+            else
+              false
+            end
+        }
+      end
+
+    render(conn, "index.json", challenges: challenges_to_display)
   end
 
   def team_progres(conn, %{"challenge_id" => challenge_id}) do

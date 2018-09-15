@@ -18,7 +18,9 @@ defmodule Userteam1Web.ApiChallengeView do
           challenge.description
         end,
       difficulty: challenge.difficulty,
-      avatar: render_image_url(challenge)
+      avatar: render_image_url(challenge),
+      days_left: challenge.days_left,
+      done_by_user: challenge.done_by_user
     }
   end
 
