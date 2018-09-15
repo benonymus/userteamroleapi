@@ -103,7 +103,7 @@ defmodule Userteam1Web.ApiUserView do
     %{token: jwt}
   end
 
-  def render_image_url(user) do
+  defp render_image_url(user) do
     if user.avatar != nil do
       Userteam1Web.Avatar.url({user.avatar, user}, :original)
     else

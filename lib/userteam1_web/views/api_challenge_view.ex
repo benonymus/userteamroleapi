@@ -18,7 +18,7 @@ defmodule Userteam1Web.ApiChallengeView do
           challenge.description
         end,
       difficulty: challenge.difficulty,
-      avatar: render_image_url(user)
+      avatar: render_image_url(challenge)
     }
   end
 
@@ -31,12 +31,12 @@ defmodule Userteam1Web.ApiChallengeView do
       users: render_many(users, ApiUserView, "user_with_done.json", as: :user)
     }
   end
-end
 
-def render_image_url(challenge) do
-  if user.avatar != nil do
-    Userteam1Web.ChallengeAvatar.url({challenge.avatar, challenge}, :original)
-  else
-    nil
+  defp render_image_url(challenge) do
+    if challenge.avatar != nil do
+      Userteam1Web.ChallengeAvatar.url({challenge.avatar, challenge}, :original)
+    else
+      nil
+    end
   end
 end
