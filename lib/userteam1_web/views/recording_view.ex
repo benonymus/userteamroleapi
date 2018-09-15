@@ -23,7 +23,8 @@ defmodule Userteam1Web.RecordingView do
   def render("recording.json", %{recording: recording}) do
     %{
       id: recording.id,
-      path_to_recording: recording.path_to_recording,
+      recording_name: recording.path_to_recording,
+      path_to_recording: render_recording_url(recording),
       recording_comments:
         if recording.comment == nil do
           "no comments yet"
@@ -32,5 +33,13 @@ defmodule Userteam1Web.RecordingView do
         end,
       number_of_comments: length(recording.comment)
     }
+  end
+
+  defp render_recording_url(recording) do
+    if recording.path_to_recording != nil do
+      Userteam1Web.Recording.url({recording.path_to_recording, recording}, :original)
+    else
+      nil
+    end
   end
 end
