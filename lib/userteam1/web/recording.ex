@@ -5,7 +5,7 @@ defmodule Userteam1.Web.Recording do
 
   schema "recordings" do
     field(:path_to_recording, Userteam1Web.Recording.Type)
-    field(:mod_score, :integer, default: 0)
+    field(:mod_score, :integer)
     belongs_to(:user, Userteam1.Web.User)
     belongs_to(:challenge, Userteam1.Web.Challenge)
     has_many(:comment, Userteam1.Web.Comment)
