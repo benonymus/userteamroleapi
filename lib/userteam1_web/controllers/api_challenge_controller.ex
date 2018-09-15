@@ -68,6 +68,7 @@ defmodule Userteam1Web.ApiChallengeController do
         %{
           id: user.id,
           name: user.name,
+          avatar: user.avatar,
           done:
             if user.id in team_recordings_user_ids do
               true
