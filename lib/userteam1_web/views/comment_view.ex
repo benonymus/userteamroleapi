@@ -14,7 +14,8 @@ defmodule Userteam1Web.CommentView do
     %{
       id: comment.id,
       message: comment.message,
-      user_name: comment.user.name
+      user_name: comment.user.name,
+      avatar: comment.user.avatar
     }
   end
 end
