@@ -14,6 +14,6 @@ defmodule Userteam1.Web.Comment do
   def changeset(comment, attrs) do
     comment
     |> cast(attrs, [:message, :user_id, :recording_id])
-    |> validate_required([:message])
+    |> validate_required([:message, :user_id, :recording_id])
   end
 end
