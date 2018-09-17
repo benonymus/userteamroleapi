@@ -9,7 +9,9 @@ defmodule Userteam1Web.ApiUserView do
 
   def render("user_with_mod_score.json", %{user: user}) do
     %{
+      id: user.id,
       name: user.name,
+      avatar: render_image_url(user),
       num_of_recordings: user.num_of_recordings,
       mod_score:
         if List.first(user.mod_score) == nil do

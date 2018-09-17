@@ -72,6 +72,33 @@ defmodule Userteam1Web.ApiTeamController do
     )
   end
 
+  def get_team_by_id(conn, %{"id" => id}) do
+    team = Web.get_team!(id)
+    team_score = get_team_score(team)
+    team_members = get_team_members(team)
+    team_recordings = RecordingController.get_recording_list_by_team_members(team_members)
+
+    users_for_display =
+      for user <- team_members do
+        %{
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          mod_score_sum: RecordingController.get_mod_score_sum(user),
+          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+        }
+      end
+
+    conn
+    |> render(
+      "team.json",
+      team: team,
+      team_score: team_score,
+      team_members: users_for_display,
+      team_recordings: team_recordings
+    )
+  end
+
   def update(conn, %{"id" => id, "team" => team_params}) do
     # current_user = Guardian.Plug.current_resource(conn)
     team = Web.get_team!(id)

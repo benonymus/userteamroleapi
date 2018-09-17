@@ -36,13 +36,13 @@ defmodule Userteam1Web.ApiUserController do
     users_with_scores =
       for user <- users do
         %{
+          id: user.id,
           name: user.name,
           mod_score: RecordingController.get_mod_score_sum(user),
-          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+          num_of_recordings: length(RecordingController.get_recording_list_scored(user)),
+          avatar: user.avatar
         }
       end
-
-    IO.inspect(users_with_scores)
 
     render(conn, "index.json", users: users_with_scores)
   end
@@ -65,8 +65,25 @@ defmodule Userteam1Web.ApiUserController do
     )
   end
 
+  def get_user_by_id(conn, %{"id" => id}) do
+    user = Web.get_user!(id)
+    team_score = ApiTeamController.get_team_score(user.team)
+    recording_list = RecordingController.get_recording_list(user)
+    mod_score_sum = RecordingController.get_mod_score_sum(user)
+    num_of_recordings = length(RecordingController.get_recording_list_scored(user))
+
+    conn
+    |> render(
+      "user_with_scores.json",
+      user: user,
+      team_score: team_score,
+      recording_list: recording_list,
+      mod_score_sum: mod_score_sum,
+      num_of_recordings: num_of_recordings
+    )
+  end
+
   def update(conn, %{"id" => id, "user" => user_params}) do
-    # current_user = Guardian.Plug.current_resource(conn)
     user = Web.get_user!(id)
 
     case Web.update_user(user, user_params) do
