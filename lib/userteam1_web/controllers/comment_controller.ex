@@ -8,7 +8,6 @@ defmodule Userteam1Web.CommentController do
 
   def index(conn, _params) do
     comments = Web.list_comments()
-    IO.inspect(comments)
     render(conn, "index.json", comments: comments)
   end
 

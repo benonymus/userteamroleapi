@@ -117,7 +117,6 @@ defmodule Userteam1Web.RecordingController do
       number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
       calculated_score = number_of_days_between * challenge.difficulty * 100
       user = Web.get_user!(recording.user_id)
-      IO.inspect(user)
       score_to_insert = user.score + calculated_score
 
       updated_user = %{
