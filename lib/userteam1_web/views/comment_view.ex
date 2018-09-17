@@ -15,7 +15,15 @@ defmodule Userteam1Web.CommentView do
       id: comment.id,
       message: comment.message,
       user_name: comment.user.name,
-      avatar: comment.user.avatar
+      avatar: render_image_url(comment.user)
     }
+  end
+
+  defp render_image_url(user) do
+    if user.avatar != nil do
+      Userteam1Web.Avatar.url({user.avatar, user}, :original)
+    else
+      nil
+    end
   end
 end
