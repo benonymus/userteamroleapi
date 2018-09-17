@@ -5,7 +5,7 @@ defmodule Userteam1.Repo.Migrations.CreateChallenges do
     create table(:challenges) do
       add(:name, :string)
       add(:avatar, :string)
-      add(:description, :string)
+      add(:description, :text)
       add(:difficulty, :integer)
       add(:due_date, :date)
 
