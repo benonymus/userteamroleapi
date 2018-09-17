@@ -1,6 +1,7 @@
 <div>
-<span><%= link "Teams Page", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
-<span><%= link "Challenges Page", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
 </div>
 <h2>Listing Users</h2>
 

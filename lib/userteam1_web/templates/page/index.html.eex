@@ -1,20 +1,8 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to the %{name}!", name: "Super Admin Page" %></h2>
-</div>
-
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
-      </li>
-      <li>
-        <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
-      </li>
-      <li>
-        <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
-      </li>
-    </ul>
+  <div>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
   </div>
+  <h2><%= "Klantgericht Omroepen!" %></h2>
 </div>

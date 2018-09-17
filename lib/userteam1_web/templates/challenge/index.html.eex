@@ -1,6 +1,7 @@
 <div>
-<span><%= link "Users Page", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
-<span><%= link "Teams Page", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
 </div>
 <h2>Listing Challenges</h2>
 
@@ -33,4 +34,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Challenge", to: challenge_path(@conn, :new) %></span>
+<span><%= link "+ Challenge Toevoegen", to: challenge_path(@conn, :new) %></span>

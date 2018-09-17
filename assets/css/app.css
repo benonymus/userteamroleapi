@@ -1,1 +1,8 @@
 /* This file is for your main application css. */
+body {
+  background-image: url("/images/backgroundsuperadmin.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom center;
+  background-size: contain;
+}
