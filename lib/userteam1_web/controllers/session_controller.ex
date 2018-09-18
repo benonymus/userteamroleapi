@@ -12,7 +12,7 @@ defmodule Userteam1Web.SessionController do
         IO.inspect(user)
 
         # change the ud to the super admin's id prob 3
-        if user.role_id == 1 do
+        if user.role_id == 3 do
           conn
           |> put_flash(:info, "Successfully signed in!")
           |> Guardian.Plug.sign_in(user)
