@@ -9,11 +9,13 @@ defmodule Userteam1Web.ApiChallengeController do
   def index(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     recording_list = RecordingController.get_recording_list(user)
-    recordings_user_ids = Enum.map(recording_list, fn recording -> recording.user_id end)
+
+    recordings_challenge_ids =
+      Enum.map(recording_list, fn recording -> recording.challenge_id end)
+
     challenges = Web.list_challenges()
 
     today = Date.utc_today()
-    IO.inspect(today)
 
     challenges_to_display =
       for challenge <- challenges do
@@ -35,7 +37,7 @@ defmodule Userteam1Web.ApiChallengeController do
               -1
             end,
           done_by_user:
-            if user.id in recordings_user_ids do
+            if challenge.id in recordings_challenge_ids do
               true
             else
               false
