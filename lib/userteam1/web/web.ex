@@ -347,7 +347,14 @@ defmodule Userteam1.Web do
 
   """
   def list_challenges do
-    Repo.all(Challenge)
+    challenges_query =
+      from(
+        c in Challenge,
+        order_by: [desc: c.id],
+        select: c
+      )
+
+    Repo.all(challenges_query)
   end
 
   @doc """
