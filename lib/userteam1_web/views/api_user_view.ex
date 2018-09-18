@@ -72,6 +72,7 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
+      role_id: user.role_id,
       password_hash: user.password_hash,
       team:
         if user.team == nil do
