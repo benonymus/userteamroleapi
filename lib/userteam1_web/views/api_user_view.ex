@@ -99,7 +99,7 @@ defmodule Userteam1Web.ApiUserView do
   end
 
   def render("userjwt.json", %{user: user, jwt: jwt}) do
-    %{id: user.id, name: user.name, team_id: user.team_id, token: jwt}
+    %{id: user.id, name: user.name, role_id: user.role_id, team_id: user.team_id, token: jwt}
   end
 
   def render("jwt.json", %{jwt: jwt}) do
