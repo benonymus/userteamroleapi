@@ -27,13 +27,14 @@ defmodule Userteam1Web.RecordingController do
 
   def get_recording_list_by_team_members(team_members) do
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
+    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
 
     recording_query =
       from(
         r in Recording,
         order_by: [desc: r.id],
         where: r.user_id in ^team_members_ids,
-        preload: [:user, comment: [:user]],
+        preload: [:user, comment: ^comment_order_query],
         select: r
       )
 
@@ -57,12 +58,13 @@ defmodule Userteam1Web.RecordingController do
 
   def get_recording_list_for_mod(team_members) do
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
+    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
 
     recording_query =
       from(
         r in Recording,
         where: r.user_id in ^team_members_ids and is_nil(r.mod_score),
-        preload: [comment: [:user]],
+        preload: [comment: ^comment_order_query],
         select: r
       )
 
@@ -70,12 +72,14 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_recording_list_scored(user) do
+    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
+
     recording_query =
       from(
         r in Recording,
         order_by: [desc: r.id],
         where: r.user_id == ^user.id and not is_nil(r.mod_score),
-        preload: [:user, comment: [:user]],
+        preload: [:user, comment: ^comment_order_query],
         select: r
       )
 
