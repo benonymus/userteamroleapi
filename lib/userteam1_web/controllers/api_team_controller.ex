@@ -36,7 +36,7 @@ defmodule Userteam1Web.ApiTeamController do
 
     teams_with_scores =
       for team <- teams do
-        %{name: team.name, team_score: get_team_score(team)}
+        %{id: team.id, name: team.name, team_score: get_team_score(team)}
       end
 
     IO.inspect(teams_with_scores)

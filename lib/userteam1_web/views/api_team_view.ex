@@ -10,7 +10,7 @@ defmodule Userteam1Web.ApiTeamView do
 
   def render("teamx.json", %{team: team}) do
     %{
-      # id: team.id,
+      id: team.id,
       name: team.name,
       team_score: List.first(team.team_score)
     }
