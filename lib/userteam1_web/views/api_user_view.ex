@@ -91,7 +91,7 @@ defmodule Userteam1Web.ApiUserView do
         if List.first(mod_score_sum) == nil do
           0
         else
-          List.first(mod_score_sum)
+          List.first(mod_score_sum) / user.num_of_recordings
         end,
       avatar: render_image_url(user),
       num_of_recordings: num_of_recordings
