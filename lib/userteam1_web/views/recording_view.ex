@@ -22,9 +22,6 @@ defmodule Userteam1Web.RecordingView do
   end
 
   def render("recording.json", %{recording: recording}) do
-    IO.puts("recording.json")
-    IO.inspect(recording)
-
     %{
       id: recording.id,
       recording_name: recording.path_to_recording,

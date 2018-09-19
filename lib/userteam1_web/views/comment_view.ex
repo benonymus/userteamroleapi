@@ -15,6 +15,7 @@ defmodule Userteam1Web.CommentView do
       id: comment.id,
       message: comment.message,
       user_name: comment.user.name,
+      role_id: comment.user.role_id,
       avatar: render_image_url(comment.user)
     }
   end
