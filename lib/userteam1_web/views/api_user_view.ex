@@ -51,6 +51,7 @@ defmodule Userteam1Web.ApiUserView do
     %{
       id: user.id,
       name: user.name,
+      role_id: user.role_id,
       avatar: render_image_url(user),
       num_of_recordings: user.num_of_recordings,
       mod_score_sum:

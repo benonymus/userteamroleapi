@@ -56,6 +56,7 @@ defmodule Userteam1Web.ApiTeamController do
         %{
           id: user.id,
           name: user.name,
+          role_id: user.role_id,
           avatar: user.avatar,
           mod_score_sum: RecordingController.get_mod_score_sum(user),
           num_of_recordings: length(RecordingController.get_recording_list_scored(user))
