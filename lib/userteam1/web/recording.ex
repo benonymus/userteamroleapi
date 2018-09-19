@@ -8,7 +8,7 @@ defmodule Userteam1.Web.Recording do
     field(:mod_score, :integer)
     belongs_to(:user, Userteam1.Web.User)
     belongs_to(:challenge, Userteam1.Web.Challenge)
-    has_many(:comment, Userteam1.Web.Comment)
+    has_many(:comment, Userteam1.Web.Comment, on_delete: :nilify_all)
 
     timestamps()
   end

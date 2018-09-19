@@ -6,16 +6,19 @@ defmodule Userteam1Web.RecordingController do
   alias Userteam1.Web
   alias Userteam1.Web.Recording
   alias Userteam1Web.ApiTeamController
+  alias Userteam1.Web.Comment
 
   action_fallback(Userteam1Web.FallbackController)
 
   def get_recording_list(user) do
+    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
+
     recording_query =
       from(
         r in Recording,
         order_by: [desc: r.id],
         where: r.user_id == ^user.id,
-        preload: [:user, comment: [:user]],
+        preload: [:user, comment: ^comment_order_query],
         select: r
       )
 
@@ -23,10 +26,7 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_recording_list_by_team_members(team_members) do
-    # team_membersx = Ecto.assoc(team_members, :recording)
-    # IO.inspect(team_members)
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
-    # IO.inspect(team_members_ids)
 
     recording_query =
       from(
@@ -41,10 +41,7 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_recording_list_by_team_members_and_challeneg_id(team_members, challenge_id) do
-    # team_membersx = Ecto.assoc(team_members, :recording)
-    # IO.inspect(team_members)
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
-    # IO.inspect(team_members_ids)
 
     recording_query =
       from(
@@ -59,7 +56,6 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_recording_list_for_mod(team_members) do
-    # team_membersx = Ecto.assoc(team_members, :recording)
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
 
     recording_query =
@@ -104,12 +100,6 @@ defmodule Userteam1Web.RecordingController do
     recordings = get_recording_list_for_mod(team_members)
     render(conn, "index.json", recordings: recordings)
   end
-
-  # old index
-  # def index(conn, _params) do
-  #   recordings = Web.list_recordings()
-  #   render(conn, "index.json", recordings: recordings)
-  # end
 
   def create(conn, %{"recording" => recording_params}) do
     with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do

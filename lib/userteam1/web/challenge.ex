@@ -9,7 +9,7 @@ defmodule Userteam1.Web.Challenge do
     field(:description, :string)
     field(:difficulty, :integer)
     field(:due_date, :date)
-    has_many(:recording, Userteam1.Web.Recording)
+    has_many(:recording, Userteam1.Web.Recording, on_delete: :nilify_all)
     timestamps()
   end
 
