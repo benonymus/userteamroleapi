@@ -51,7 +51,7 @@ defmodule Userteam1Web.ApiChallengeController do
   def team_progres(conn, %{"challenge_id" => challenge_id}) do
     user = Guardian.Plug.current_resource(conn)
     team = Web.get_team!(user.team.id)
-    team_members = ApiTeamController.get_team_members(team)
+    team_members = ApiTeamController.get_team_members_without_teamleader(team)
 
     team_recordings_by_challenge_id =
       RecordingController.get_recording_list_by_team_members_and_challeneg_id(
@@ -87,14 +87,4 @@ defmodule Userteam1Web.ApiChallengeController do
       team_progress_percentage: team_progress_percentage
     )
   end
-
-  # to use for gwtting the %
-  # def show(conn, %{"id" => id}) do
-  #   user = Guardian.Plug.current_resource(conn)
-  #   challenge = Web.get_challenge!(id)
-  #   recording_list = Userteam1Web.RecordingController.get_recording_list(user)
-  #   IO.puts("list here")
-  #   IO.inspect(recording_list)
-  #   render(conn, "challenge.json", challenge: challenge)
-  # end
 end

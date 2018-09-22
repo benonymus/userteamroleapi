@@ -31,6 +31,18 @@ defmodule Userteam1Web.ApiTeamController do
     Repo.all(members_query)
   end
 
+  # edited for checking for role id is not teamlead
+  def get_team_members_without_teamleader(team) do
+    members_query =
+      from(
+        u in User,
+        where: u.team_id == ^team.id and u.role_id != 2,
+        select: u
+      )
+
+    Repo.all(members_query)
+  end
+
   def index(conn, _params) do
     teams = Web.list_teams()
 
