@@ -117,7 +117,7 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def create(conn, %{"recording" => recording_params}) do
-    IO.puts(recording_params)
+    IO.inspect(recording_params)
 
     recordings =
       get_recording_list_by_user_id_and_challenge_id(
