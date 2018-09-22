@@ -25,6 +25,17 @@ defmodule Userteam1Web.RecordingController do
     Repo.all(recording_query)
   end
 
+  def get_recording_list_by_user_id_and_challenge_id(user_id, challenge_id) do
+    recording_query =
+      from(
+        r in Recording,
+        where: r.user_id == ^user_id and r.challenge_id == ^challenge_id,
+        select: r
+      )
+
+    Repo.all(recording_query)
+  end
+
   def get_recording_list_by_team_members(team_members) do
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
     comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
@@ -106,22 +117,36 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def create(conn, %{"recording" => recording_params}) do
-    with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
-      challenge = Web.get_challenge!(recording.challenge_id)
-      number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
-      calculated_score = number_of_days_between * challenge.difficulty * 100
-      user = Web.get_user!(recording.user_id)
-      score_to_insert = user.score + calculated_score
+    recordings =
+      get_recording_list_by_user_id_and_challenge_id(
+        recording_params.user_id,
+        recording_params.challenge_id
+      )
 
-      updated_user = %{
-        score: score_to_insert
-      }
+    if recordings == nil || length(recordings) < 1 do
+      with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
+        challenge = Web.get_challenge!(recording.challenge_id)
+        number_of_days_between = Date.diff(challenge.due_date, recording.inserted_at)
+        calculated_score = number_of_days_between * challenge.difficulty * 100
+        user = Web.get_user!(recording.user_id)
+        score_to_insert = user.score + calculated_score
 
-      Web.update_user(user, updated_user)
-      send_resp(conn, 200, [])
-      # conn
-      # |> put_status(:created)
-      # |> render("show.json", recording: recording)
+        updated_user = %{
+          score: score_to_insert
+        }
+
+        Web.update_user(user, updated_user)
+        send_resp(conn, 200, [])
+      end
+    else
+      # if there was any number of recordings delete them and then add the new one without effecting the score
+      for recording <- recordings do
+        Web.delete_recording(recording)
+      end
+
+      with {:ok, %Recording{}} <- Web.create_recording(recording_params) do
+        send_resp(conn, 200, [])
+      end
     end
   end
 
