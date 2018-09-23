@@ -121,8 +121,8 @@ defmodule Userteam1Web.RecordingController do
 
     recordings =
       get_recording_list_by_user_id_and_challenge_id(
-        recording_params.user_id,
-        recording_params.challenge_id
+        recording_params["user_id"],
+        recording_params["challenge_id"]
       )
 
     if recordings == nil || length(recordings) < 1 do

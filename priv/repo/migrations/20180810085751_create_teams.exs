@@ -3,10 +3,9 @@ defmodule Userteam1.Repo.Migrations.CreateTeams do
 
   def change do
     create table(:teams) do
-      add :name, :string
+      add(:name, :string)
 
       timestamps()
     end
-
   end
 end

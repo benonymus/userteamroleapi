@@ -4,7 +4,7 @@ defmodule Userteam1.Web.Role do
 
   schema "roles" do
     field(:name, :string)
-    has_many(:users, Userteam1.Web.User, on_delete: :nilify_all)
+    has_many(:users, Userteam1.Web.User)
 
     timestamps()
   end

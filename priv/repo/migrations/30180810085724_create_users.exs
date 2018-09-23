@@ -7,8 +7,8 @@ defmodule Userteam1.Repo.Migrations.CreateUsers do
       add(:avatar, :string)
       add(:password_hash, :string)
       add(:score, :integer)
-      add(:role_id, references(:roles))
-      add(:team_id, references(:teams))
+      add(:role_id, references(:roles, on_delete: :nilify_all))
+      add(:team_id, references(:teams, on_delete: :nilify_all))
 
       timestamps()
     end
