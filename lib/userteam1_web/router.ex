@@ -45,10 +45,10 @@ defmodule Userteam1Web.Router do
     pipe_through(:browser)
 
     resources("/", SessionController, only: [:index, :create, :delete])
-    # resources("/teams", TeamController)
-    # resources("/users", UserController)
-    # resources("/roles", RoleController)
-    # resources("/challenges", ChallengeController)
+    resources("/teams", TeamController)
+    resources("/users", UserController)
+    resources("/roles", RoleController)
+    resources("/challenges", ChallengeController)
   end
 
   scope "/admin", Userteam1Web do
