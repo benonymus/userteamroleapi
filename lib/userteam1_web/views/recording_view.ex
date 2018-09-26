@@ -24,6 +24,7 @@ defmodule Userteam1Web.RecordingView do
   def render("recording.json", %{recording: recording}) do
     %{
       id: recording.id,
+      user_id: recording.user_id,
       recording_name: recording.path_to_recording,
       path_to_recording: render_recording_url(recording),
       recording_comments:
