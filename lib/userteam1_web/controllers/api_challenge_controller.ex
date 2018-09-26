@@ -19,6 +19,11 @@ defmodule Userteam1Web.ApiChallengeController do
 
     challenges_to_display =
       for challenge <- challenges do
+        IO.inspect(challenge.due_date)
+        IO.inspect(today)
+        xd = Date.diff(challenge.due_date, today)
+        IO.inspect(xd)
+
         %{
           id: challenge.id,
           name: challenge.name,
@@ -31,8 +36,8 @@ defmodule Userteam1Web.ApiChallengeController do
           difficulty: challenge.difficulty,
           avatar: challenge.avatar,
           days_left:
-            if challenge.due_date >= today do
-              Date.diff(challenge.due_date, today)
+            if xd >= 0 do
+              xd
             else
               -1
             end,
