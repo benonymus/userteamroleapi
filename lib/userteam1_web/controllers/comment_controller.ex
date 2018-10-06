@@ -12,7 +12,7 @@ defmodule Userteam1Web.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
-    with {:ok, %Comment{} = comment} <- Web.create_comment(comment_params) do
+    with {:ok, %Comment{} = _comment} <- Web.create_comment(comment_params) do
       # conn
       # |> put_status(:created)
       # |> render("show.json", comment: comment)

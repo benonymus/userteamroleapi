@@ -1,0 +1,13 @@
+<h2>Show Info</h2>
+
+<ul>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @info.content %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: info_path(@conn, :edit, @info) %></span>
+<span><%= link "Back", to: info_path(@conn, :index) %></span>

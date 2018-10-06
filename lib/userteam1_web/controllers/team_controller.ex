@@ -62,7 +62,7 @@ defmodule Userteam1Web.TeamController do
         |> put_flash(:info, "Team deleted successfully.")
         |> redirect(to: team_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, %Ecto.Changeset{} = _changeset} ->
         IO.puts("SHIT")
         # render(conn, "edit.html", team: team, changeset: changeset)
     end

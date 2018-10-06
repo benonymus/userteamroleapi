@@ -368,4 +368,64 @@ defmodule Userteam1.WebTest do
       assert %Ecto.Changeset{} = Web.change_comment(comment)
     end
   end
+
+  describe "infos" do
+    alias Userteam1.Web.Info
+
+    @valid_attrs %{content: "some content"}
+    @update_attrs %{content: "some updated content"}
+    @invalid_attrs %{content: nil}
+
+    def info_fixture(attrs \\ %{}) do
+      {:ok, info} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Web.create_info()
+
+      info
+    end
+
+    test "list_infos/0 returns all infos" do
+      info = info_fixture()
+      assert Web.list_infos() == [info]
+    end
+
+    test "get_info!/1 returns the info with given id" do
+      info = info_fixture()
+      assert Web.get_info!(info.id) == info
+    end
+
+    test "create_info/1 with valid data creates a info" do
+      assert {:ok, %Info{} = info} = Web.create_info(@valid_attrs)
+      assert info.content == "some content"
+    end
+
+    test "create_info/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Web.create_info(@invalid_attrs)
+    end
+
+    test "update_info/2 with valid data updates the info" do
+      info = info_fixture()
+      assert {:ok, info} = Web.update_info(info, @update_attrs)
+      assert %Info{} = info
+      assert info.content == "some updated content"
+    end
+
+    test "update_info/2 with invalid data returns error changeset" do
+      info = info_fixture()
+      assert {:error, %Ecto.Changeset{}} = Web.update_info(info, @invalid_attrs)
+      assert info == Web.get_info!(info.id)
+    end
+
+    test "delete_info/1 deletes the info" do
+      info = info_fixture()
+      assert {:ok, %Info{}} = Web.delete_info(info)
+      assert_raise Ecto.NoResultsError, fn -> Web.get_info!(info.id) end
+    end
+
+    test "change_info/1 returns a info changeset" do
+      info = info_fixture()
+      assert %Ecto.Changeset{} = Web.change_info(info)
+    end
+  end
 end

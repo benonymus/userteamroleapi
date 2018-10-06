@@ -4,29 +4,31 @@
   <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
   <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
 </div>
-<h2>Roles</h2>
+<h2>Info</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Content</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for role <- @roles do %>
+<%= for info <- @infos do %>
     <tr>
-      <td><%= role.name %></td>
+      <td><%= info.content %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: role_path(@conn, :show, role), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: role_path(@conn, :edit, role), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: role_path(@conn, :delete, role), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: info_path(@conn, :show, info), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: info_path(@conn, :edit, info), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: info_path(@conn, :delete, info), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Role", to: role_path(@conn, :new) %></span>
+<%= if length(@infos) < 1 do %>
+<span><%= link "New Info", to: info_path(@conn, :new) %></span>
+<% end %>
