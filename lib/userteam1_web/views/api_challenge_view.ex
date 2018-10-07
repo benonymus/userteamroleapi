@@ -17,6 +17,12 @@ defmodule Userteam1Web.ApiChallengeView do
         else
           challenge.description
         end,
+      hint:
+        if challenge.hint == nil do
+          "no hint for this challenge"
+        else
+          challenge.hint
+        end,
       difficulty: challenge.difficulty,
       avatar: render_image_url(challenge),
       days_left: challenge.days_left,

@@ -6,6 +6,7 @@ defmodule Userteam1.Repo.Migrations.CreateChallenges do
       add(:name, :string)
       add(:avatar, :string)
       add(:description, :text)
+      add(:hint, :text)
       add(:difficulty, :integer)
       add(:due_date, :date)
 
