@@ -8,6 +8,24 @@
   </li>
 
   <li>
+    <strong>Challenge Group:</strong>
+    <%= if !@challenge.challenge_group do %>
+    no challenge group set
+    <% else %>
+    <%= @challenge.challenge_group.name %>
+    <% end %>
+  </li>
+
+  <li>
+    <strong>Challenge type:</strong>
+    <%= if !@challenge.main do %>
+    sub Challenge
+    <% else %>
+    main Challenge
+    <% end %>
+  </li>
+
+  <li>
     <strong>Description:</strong>
     <%= @challenge.description %>
   </li>

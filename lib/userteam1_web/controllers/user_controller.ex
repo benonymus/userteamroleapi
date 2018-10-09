@@ -26,8 +26,6 @@ defmodule Userteam1Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    IO.inspect(user_params)
-
     teams =
       Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
@@ -38,14 +36,11 @@ defmodule Userteam1Web.UserController do
 
     case Web.create_user(user_params) do
       {:ok, user} ->
-        IO.inspect(user)
-
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.puts("shit")
         render(conn, "new.html", changeset: changeset, teams: teams, roles: roles)
     end
   end
@@ -75,10 +70,6 @@ defmodule Userteam1Web.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Web.get_user!(id)
 
-    IO.puts("heehxd")
-    IO.inspect(conn)
-    IO.inspect(user_params)
-
     teams =
       Repo.all(Userteam1.Web.Team)
       |> Enum.map(&{&1.name, &1.id})
@@ -97,7 +88,6 @@ defmodule Userteam1Web.UserController do
         |> redirect(to: user_path(conn, :show, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.puts("xd")
         render(conn, "edit.html", user: user, changeset: changeset, teams: teams, roles: roles)
     end
   end

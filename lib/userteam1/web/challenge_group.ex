@@ -1,17 +1,17 @@
-defmodule Userteam1.Web.Role do
+defmodule Userteam1.Web.ChallengeGroup do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "roles" do
+  schema "challengegroups" do
     field(:name, :string)
-    has_many(:users, Userteam1.Web.User)
+    has_many(:challenges, Userteam1.Web.Challenge)
 
     timestamps()
   end
 
   @doc false
-  def changeset(role, attrs) do
-    role
+  def changeset(challenge_group, attrs) do
+    challenge_group
     |> cast(attrs, [:name])
     |> validate_required([:name])
     |> unique_constraint(:name)

@@ -9,6 +9,8 @@ defmodule Userteam1.Repo.Migrations.CreateChallenges do
       add(:hint, :text)
       add(:difficulty, :integer)
       add(:due_date, :date)
+      add(:main, :boolean)
+      add(:challenge_group_id, references(:challengegroups, on_delete: :delete_all))
 
       timestamps()
     end

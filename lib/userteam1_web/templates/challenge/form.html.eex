@@ -7,8 +7,20 @@
 
   <div class="form-group">
     <%= label f, "Titel Challenge", class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
+    <%= text_input f, :name, class: "form-control", required: true %>
     <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :challenge_group_id, class: "control-label" %>
+    <%= select f, :challenge_group_id, @challenge_groups, class: "form-control" %>
+    <%= error_tag f, :challenge_group_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, "Is it a main Challenge?", class: "control-label" %>
+    <%= checkbox f, :main, class: "form-control"%>
+    <%= error_tag f, :main %>
   </div>
 
   <div class="form-group">
@@ -31,7 +43,7 @@
 
   <div class="form-group">
     <%= label f, "Uitdaging", class: "control-label" %>
-    <%= number_input f, :difficulty, class: "form-control", min: 1, max: 5 %>
+    <%= number_input f, :difficulty, class: "form-control", min: 1, max: 5, required: true %>
     <%= error_tag f, :difficulty %>
   </div>
 

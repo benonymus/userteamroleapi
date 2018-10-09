@@ -5,7 +5,7 @@
   <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn" %></span>
   <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
 </div>
-<h2>Teams</h2>
+<h2>Challenge Groups</h2>
 
 <table class="table">
   <thead>
@@ -16,18 +16,18 @@
     </tr>
   </thead>
   <tbody>
-<%= for team <- @teams do %>
+<%= for challenge_group <- @challengegroups do %>
     <tr>
-      <td><%= team.name %></td>
+      <td><%= challenge_group.name %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: team_path(@conn, :show, team), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: team_path(@conn, :edit, team), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: team_path(@conn, :delete, team), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: challenge_group_path(@conn, :show, challenge_group), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: challenge_group_path(@conn, :edit, challenge_group), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: challenge_group_path(@conn, :delete, challenge_group), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "+ Team Toevoegen", to: team_path(@conn, :new) %></span>
+<span><%= link "New Challenge group", to: challenge_group_path(@conn, :new) %></span>

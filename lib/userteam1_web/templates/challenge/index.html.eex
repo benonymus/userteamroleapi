@@ -2,14 +2,17 @@
   <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
   <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
   <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn" %></span>
   <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
 </div>
-<h2>Listing Challenges</h2>
+<h2>Challenges</h2>
 
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
+      <th>Challenege Group</th>
+      <th>Challenege Type</th>
       <th>Description</th>
       <th>Due Date</th>
       <th>Difficulty</th>
@@ -21,6 +24,16 @@
 <%= for challenge <- @challenges do %>
     <tr>
       <td><%= challenge.name %></td>
+      <%= if !challenge.challenge_group do %>
+        <td>no challenge group set</td>
+         <% else %>
+      <td><%= challenge.challenge_group.name %></td>
+      <% end %>
+      <%= if !challenge.main do %>
+        <td>sub Challenge</td>
+         <% else %>
+      <td>main Challenge</td>
+      <% end %>
       <td><%= challenge.description %></td>
       <td><%= challenge.due_date %></td>
       <td><%= challenge.difficulty %></td>

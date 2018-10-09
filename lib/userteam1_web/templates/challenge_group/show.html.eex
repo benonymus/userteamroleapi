@@ -1,0 +1,13 @@
+<h2>Show Challenge group</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @challenge_group.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: challenge_group_path(@conn, :edit, @challenge_group) %></span>
+<span><%= link "Back", to: challenge_group_path(@conn, :index) %></span>

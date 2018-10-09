@@ -7,5 +7,7 @@ defmodule Userteam1.Repo.Migrations.CreateTeams do
 
       timestamps()
     end
+
+    create(unique_index(:teams, [:name]))
   end
 end

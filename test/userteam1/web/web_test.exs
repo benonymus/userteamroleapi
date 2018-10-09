@@ -189,7 +189,11 @@ defmodule Userteam1.WebTest do
     alias Userteam1.Web.Challenge
 
     @valid_attrs %{description: "some description", difficulty: 42, name: "some name"}
-    @update_attrs %{description: "some updated description", difficulty: 43, name: "some updated name"}
+    @update_attrs %{
+      description: "some updated description",
+      difficulty: 43,
+      name: "some updated name"
+    }
     @invalid_attrs %{description: nil, difficulty: nil, name: nil}
 
     def challenge_fixture(attrs \\ %{}) do
@@ -426,6 +430,66 @@ defmodule Userteam1.WebTest do
     test "change_info/1 returns a info changeset" do
       info = info_fixture()
       assert %Ecto.Changeset{} = Web.change_info(info)
+    end
+  end
+
+  describe "challengegroups" do
+    alias Userteam1.Web.ChallengeGroup
+
+    @valid_attrs %{name: "some name"}
+    @update_attrs %{name: "some updated name"}
+    @invalid_attrs %{name: nil}
+
+    def challenge_group_fixture(attrs \\ %{}) do
+      {:ok, challenge_group} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Web.create_challenge_group()
+
+      challenge_group
+    end
+
+    test "list_challengegroups/0 returns all challengegroups" do
+      challenge_group = challenge_group_fixture()
+      assert Web.list_challengegroups() == [challenge_group]
+    end
+
+    test "get_challenge_group!/1 returns the challenge_group with given id" do
+      challenge_group = challenge_group_fixture()
+      assert Web.get_challenge_group!(challenge_group.id) == challenge_group
+    end
+
+    test "create_challenge_group/1 with valid data creates a challenge_group" do
+      assert {:ok, %ChallengeGroup{} = challenge_group} = Web.create_challenge_group(@valid_attrs)
+      assert challenge_group.name == "some name"
+    end
+
+    test "create_challenge_group/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Web.create_challenge_group(@invalid_attrs)
+    end
+
+    test "update_challenge_group/2 with valid data updates the challenge_group" do
+      challenge_group = challenge_group_fixture()
+      assert {:ok, challenge_group} = Web.update_challenge_group(challenge_group, @update_attrs)
+      assert %ChallengeGroup{} = challenge_group
+      assert challenge_group.name == "some updated name"
+    end
+
+    test "update_challenge_group/2 with invalid data returns error changeset" do
+      challenge_group = challenge_group_fixture()
+      assert {:error, %Ecto.Changeset{}} = Web.update_challenge_group(challenge_group, @invalid_attrs)
+      assert challenge_group == Web.get_challenge_group!(challenge_group.id)
+    end
+
+    test "delete_challenge_group/1 deletes the challenge_group" do
+      challenge_group = challenge_group_fixture()
+      assert {:ok, %ChallengeGroup{}} = Web.delete_challenge_group(challenge_group)
+      assert_raise Ecto.NoResultsError, fn -> Web.get_challenge_group!(challenge_group.id) end
+    end
+
+    test "change_challenge_group/1 returns a challenge_group changeset" do
+      challenge_group = challenge_group_fixture()
+      assert %Ecto.Changeset{} = Web.change_challenge_group(challenge_group)
     end
   end
 end

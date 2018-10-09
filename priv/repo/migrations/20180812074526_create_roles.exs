@@ -8,6 +8,6 @@ defmodule Userteam1.Repo.Migrations.CreateRoles do
       timestamps()
     end
 
-    create(unique_index(:teams, [:name]))
+    create(unique_index(:roles, [:name]))
   end
 end

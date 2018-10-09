@@ -56,8 +56,6 @@ defmodule Userteam1Web.TeamController do
 
     case Web.delete_team(team) do
       {:ok, _team} ->
-        IO.puts("succ")
-
         conn
         |> put_flash(:info, "Team deleted successfully.")
         |> redirect(to: team_path(conn, :index))

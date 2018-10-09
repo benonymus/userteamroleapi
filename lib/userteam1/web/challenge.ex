@@ -10,6 +10,8 @@ defmodule Userteam1.Web.Challenge do
     field(:hint, :string)
     field(:difficulty, :integer)
     field(:due_date, :date)
+    field(:main, :boolean)
+    belongs_to(:challenge_group, Userteam1.Web.ChallengeGroup)
     has_many(:recording, Userteam1.Web.Recording)
     timestamps()
   end
@@ -17,7 +19,15 @@ defmodule Userteam1.Web.Challenge do
   @doc false
   def changeset(challenge, attrs) do
     challenge
-    |> cast(attrs, [:name, :description, :hint, :difficulty, :due_date])
+    |> cast(attrs, [
+      :name,
+      :description,
+      :challenge_group_id,
+      :hint,
+      :difficulty,
+      :due_date,
+      :main
+    ])
     |> cast_attachments(attrs, [:avatar])
     |> validate_required([:name, :difficulty])
   end

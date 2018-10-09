@@ -351,6 +351,7 @@ defmodule Userteam1.Web do
       from(
         c in Challenge,
         order_by: [desc: c.id],
+        preload: [:challenge_group],
         select: c
       )
 
@@ -371,7 +372,11 @@ defmodule Userteam1.Web do
       ** (Ecto.NoResultsError)
 
   """
-  def get_challenge!(id), do: Repo.get!(Challenge, id)
+
+  def get_challenge!(id) do
+    from(Challenge, preload: [:challenge_group])
+    |> Repo.get!(id)
+  end
 
   @doc """
   Creates a challenge.
@@ -728,5 +733,101 @@ defmodule Userteam1.Web do
   """
   def change_info(%Info{} = info) do
     Info.changeset(info, %{})
+  end
+
+  alias Userteam1.Web.ChallengeGroup
+
+  @doc """
+  Returns the list of challengegroups.
+
+  ## Examples
+
+      iex> list_challengegroups()
+      [%ChallengeGroup{}, ...]
+
+  """
+  def list_challengegroups do
+    Repo.all(ChallengeGroup)
+  end
+
+  @doc """
+  Gets a single challenge_group.
+
+  Raises `Ecto.NoResultsError` if the Challenge group does not exist.
+
+  ## Examples
+
+      iex> get_challenge_group!(123)
+      %ChallengeGroup{}
+
+      iex> get_challenge_group!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_challenge_group!(id), do: Repo.get!(ChallengeGroup, id)
+
+  @doc """
+  Creates a challenge_group.
+
+  ## Examples
+
+      iex> create_challenge_group(%{field: value})
+      {:ok, %ChallengeGroup{}}
+
+      iex> create_challenge_group(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_challenge_group(attrs \\ %{}) do
+    %ChallengeGroup{}
+    |> ChallengeGroup.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a challenge_group.
+
+  ## Examples
+
+      iex> update_challenge_group(challenge_group, %{field: new_value})
+      {:ok, %ChallengeGroup{}}
+
+      iex> update_challenge_group(challenge_group, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_challenge_group(%ChallengeGroup{} = challenge_group, attrs) do
+    challenge_group
+    |> ChallengeGroup.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a ChallengeGroup.
+
+  ## Examples
+
+      iex> delete_challenge_group(challenge_group)
+      {:ok, %ChallengeGroup{}}
+
+      iex> delete_challenge_group(challenge_group)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_challenge_group(%ChallengeGroup{} = challenge_group) do
+    Repo.delete(challenge_group)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking challenge_group changes.
+
+  ## Examples
+
+      iex> change_challenge_group(challenge_group)
+      %Ecto.Changeset{source: %ChallengeGroup{}}
+
+  """
+  def change_challenge_group(%ChallengeGroup{} = challenge_group) do
+    ChallengeGroup.changeset(challenge_group, %{})
   end
 end
