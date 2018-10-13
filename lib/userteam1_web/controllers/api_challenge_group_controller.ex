@@ -1,0 +1,36 @@
+defmodule Userteam1Web.ApiChallengeGroupController do
+  use Userteam1Web, :controller
+
+  alias Userteam1.Repo
+  alias Userteam1.Web
+  alias Userteam1.Web.ChallengeGroup
+
+  action_fallback(Userteam1Web.FallbackController)
+
+  defp number_of_challanges(challenge_group_id) do
+    challenge_query =
+      from(
+        c in Challenge,
+        where: c.challenge_group_id == ^challenge_group_id,
+        select: count(c.id)
+      )
+
+    Repo.all(challenge_query)
+  end
+
+  def index(conn, _params) do
+    challengegroups = Web.list_challengegroups()
+
+    challenge_groups =
+      for challengegroups <- challengegroup do
+        %{
+          id: challengegroup.id,
+          name: challengegroup.name,
+          avatar: challengegroup.avatar,
+          number_of_challanges: number_of_challanges(challengegroup.id)
+        }
+      end
+
+    render(conn, "index.json", challenge_groups: challenge_groups)
+  end
+end

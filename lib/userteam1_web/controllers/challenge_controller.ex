@@ -6,17 +6,6 @@ defmodule Userteam1Web.ChallengeController do
   alias Userteam1.Web
   alias Userteam1.Web.Challenge
 
-  defp get_challenge_by_challenge_group_id(challenge_group_id) do
-    challenge_query =
-      from(
-        c in Challenge,
-        where: c.challenge_group_id == ^challenge_group_id and c.main == true,
-        select: c
-      )
-
-    Repo.all(challenge_query)
-  end
-
   def index(conn, _params) do
     challenges = Web.list_challenges()
     render(conn, "index.html", challenges: challenges)

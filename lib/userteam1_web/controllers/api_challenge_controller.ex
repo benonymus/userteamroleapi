@@ -1,19 +1,32 @@
 defmodule Userteam1Web.ApiChallengeController do
   use Userteam1Web, :controller
+
+  alias Userteam1.Repo
   alias Userteam1.Web
   alias Userteam1Web.ApiTeamController
   alias Userteam1Web.RecordingController
 
   action_fallback(Userteam1Web.FallbackController)
 
-  def index(conn, _params) do
+  defp get_challenges_by_challenge_group_id(challenge_group_id) do
+    challenge_query =
+      from(
+        c in Challenge,
+        where: c.challenge_group_id == ^challenge_group_id,
+        select: c
+      )
+
+    Repo.all(challenge_query)
+  end
+
+  def get_challenge_list_by_challenge_group_id(conn, %{"challenge_group_id" => challenge_group_id}) do
     user = Guardian.Plug.current_resource(conn)
     recording_list = RecordingController.get_recording_list(user)
 
     recordings_challenge_ids =
       Enum.map(recording_list, fn recording -> recording.challenge_id end)
 
-    challenges = Web.list_challenges()
+    challenges = get_challenges_by_challenge_group_id(challenge_group_id)
 
     today = Date.utc_today()
 
@@ -25,12 +38,17 @@ defmodule Userteam1Web.ApiChallengeController do
           id: challenge.id,
           name: challenge.name,
           description:
-            if challenge.description == nil do
+            if challenge.description == nil || challenge.description == "" do
               "no description"
             else
               challenge.description
             end,
-          hint: challenge.hint,
+          hint:
+            if challenge.hint == nil || challenge.hint == "" do
+              "no hints for this one friend :)"
+            else
+              challenge.hint
+            end,
           difficulty: challenge.difficulty,
           avatar: challenge.avatar,
           days_left:
