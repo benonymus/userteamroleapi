@@ -6,6 +6,10 @@
     <strong>Name:</strong>
     <%= @challenge_group.name %>
   </li>
+  <li>
+    <strong>Avatar:</strong>
+    <img src="<%= Userteam1Web.ChallengeGroupAvatar.url({@challenge_group.avatar, @challenge_group}) %>"/>
+  </li>
 
 </ul>
 

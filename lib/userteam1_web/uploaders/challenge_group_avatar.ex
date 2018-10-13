@@ -1,4 +1,4 @@
-defmodule Userteam1Web.ChallengeAvatar do
+defmodule Userteam1Web.ChallengeGroupAvatar do
   use Arc.Definition
 
   # Include ecto support (requires package arc_ecto installed):
@@ -36,7 +36,7 @@ defmodule Userteam1Web.ChallengeAvatar do
 
   # Provide a default URL if there hasn't been a file uploaded
   def default_url(_version, _scope) do
-    "uploads/challenges/avatars/"
+    "uploads/challenge_groups/avatars/"
   end
 
   # Specify custom headers for s3 objects

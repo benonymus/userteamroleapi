@@ -45,7 +45,7 @@
   <%= label f, "Upload Icoon", class: "control-label" %>
   <%= file_input f, :avatar, class: "form-control" %>
   <%= error_tag f, :avatar %>
-</div>
+  </div>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
