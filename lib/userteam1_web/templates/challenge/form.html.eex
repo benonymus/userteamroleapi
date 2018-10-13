@@ -18,12 +18,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, "Is it a main Challenge?", class: "control-label" %>
-    <%= checkbox f, :main, class: "form-control"%>
-    <%= error_tag f, :main %>
-  </div>
-
-  <div class="form-group">
     <%= label f, "Challenge Omschrijving", class: "control-label" %>
     <%= text_input f, :description, class: "form-control" %>
     <%= error_tag f, :description %>

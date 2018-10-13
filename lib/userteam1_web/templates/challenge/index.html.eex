@@ -12,7 +12,6 @@
     <tr>
       <th>Name</th>
       <th>Challenege Group</th>
-      <th>Challenege Type</th>
       <th>Description</th>
       <th>Due Date</th>
       <th>Difficulty</th>
@@ -28,11 +27,6 @@
         <td>no challenge group set</td>
          <% else %>
       <td><%= challenge.challenge_group.name %></td>
-      <% end %>
-      <%= if !challenge.main do %>
-        <td>sub Challenge</td>
-         <% else %>
-      <td>main Challenge</td>
       <% end %>
       <td><%= challenge.description %></td>
       <td><%= challenge.due_date %></td>
