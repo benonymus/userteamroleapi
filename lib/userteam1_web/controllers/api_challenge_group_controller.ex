@@ -23,12 +23,16 @@ defmodule Userteam1Web.ApiChallengeGroupController do
 
     challenge_groups =
       for challengegroups <- challengegroup do
-        %{
-          id: challengegroup.id,
-          name: challengegroup.name,
-          avatar: challengegroup.avatar,
-          number_of_challanges: number_of_challanges(challengegroup.id)
-        }
+        num_of_challanges = number_of_challanges(challengegroup.id)
+
+        if !num_of_challanges == 0 do
+          %{
+            id: challengegroup.id,
+            name: challengegroup.name,
+            avatar: challengegroup.avatar,
+            number_of_challanges: num_of_challanges
+          }
+        end
       end
 
     render(conn, "index.json", challenge_groups: challenge_groups)
