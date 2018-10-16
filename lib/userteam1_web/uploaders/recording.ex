@@ -31,7 +31,7 @@ defmodule Userteam1Web.Recording do
 
   # Override the storage directory:
   def storage_dir(_, {_, _}) do
-    "uploads/recordings/"
+    "uploads/submissions/"
   end
 
   # Provide a default URL if there hasn't been a file uploaded
