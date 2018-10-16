@@ -1,9 +1,10 @@
 defmodule Userteam1Web.ApiChallengeGroupController do
   use Userteam1Web, :controller
+  import Ecto.Query
 
   alias Userteam1.Repo
   alias Userteam1.Web
-  alias Userteam1.Web.ChallengeGroup
+  alias Userteam1.Web.Challenge
 
   action_fallback(Userteam1Web.FallbackController)
 
@@ -22,7 +23,7 @@ defmodule Userteam1Web.ApiChallengeGroupController do
     challengegroups = Web.list_challengegroups()
 
     challenge_groups =
-      for challengegroups <- challengegroup do
+      for challengegroup <- challengegroups do
         num_of_challanges = number_of_challanges(challengegroup.id)
 
         if !num_of_challanges == 0 do

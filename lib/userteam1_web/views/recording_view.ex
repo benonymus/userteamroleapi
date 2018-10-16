@@ -16,8 +16,7 @@ defmodule Userteam1Web.RecordingView do
     %{
       id: recording.id,
       recording_name: recording.path_to_recording,
-      path_to_recording: render_recording_url(recording),
-      mod_score: recording.mod_score
+      path_to_recording: render_recording_url(recording)
     }
   end
 

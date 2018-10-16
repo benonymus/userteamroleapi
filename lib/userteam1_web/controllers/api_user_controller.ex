@@ -39,7 +39,7 @@ defmodule Userteam1Web.ApiUserController do
           id: user.id,
           name: user.name,
           mod_score: RecordingController.get_mod_score_sum(user),
-          num_of_recordings: length(RecordingController.get_recording_list_scored(user)),
+          num_of_recordings: RecordingController.get_number_of_rated_recordings(user),
           avatar: user.avatar
         }
       end
@@ -52,7 +52,7 @@ defmodule Userteam1Web.ApiUserController do
     team_score = ApiTeamController.get_team_score(user.team)
     recording_list = RecordingController.get_recording_list(user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
-    num_of_recordings = length(RecordingController.get_recording_list_scored(user))
+    num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 
     conn
     |> render(
@@ -70,7 +70,7 @@ defmodule Userteam1Web.ApiUserController do
     team_score = ApiTeamController.get_team_score(user.team)
     recording_list = RecordingController.get_recording_list(user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
-    num_of_recordings = length(RecordingController.get_recording_list_scored(user))
+    num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 
     conn
     |> render(
@@ -91,7 +91,7 @@ defmodule Userteam1Web.ApiUserController do
         team_score = ApiTeamController.get_team_score(user.team)
         recording_list = RecordingController.get_recording_list(user)
         mod_score_sum = RecordingController.get_mod_score_sum(user)
-        num_of_recordings = length(RecordingController.get_recording_list_scored(user))
+        num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 
         conn
         |> render(

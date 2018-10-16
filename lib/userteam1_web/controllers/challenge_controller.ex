@@ -1,6 +1,5 @@
 defmodule Userteam1Web.ChallengeController do
   use Userteam1Web, :controller
-  import Ecto.Query
 
   alias Userteam1.Repo
   alias Userteam1.Web

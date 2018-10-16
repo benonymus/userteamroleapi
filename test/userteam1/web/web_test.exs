@@ -492,4 +492,64 @@ defmodule Userteam1.WebTest do
       assert %Ecto.Changeset{} = Web.change_challenge_group(challenge_group)
     end
   end
+
+  describe "ratings" do
+    alias Userteam1.Web.Rating
+
+    @valid_attrs %{amount: 42}
+    @update_attrs %{amount: 43}
+    @invalid_attrs %{amount: nil}
+
+    def rating_fixture(attrs \\ %{}) do
+      {:ok, rating} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Web.create_rating()
+
+      rating
+    end
+
+    test "list_ratings/0 returns all ratings" do
+      rating = rating_fixture()
+      assert Web.list_ratings() == [rating]
+    end
+
+    test "get_rating!/1 returns the rating with given id" do
+      rating = rating_fixture()
+      assert Web.get_rating!(rating.id) == rating
+    end
+
+    test "create_rating/1 with valid data creates a rating" do
+      assert {:ok, %Rating{} = rating} = Web.create_rating(@valid_attrs)
+      assert rating.amount == 42
+    end
+
+    test "create_rating/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Web.create_rating(@invalid_attrs)
+    end
+
+    test "update_rating/2 with valid data updates the rating" do
+      rating = rating_fixture()
+      assert {:ok, rating} = Web.update_rating(rating, @update_attrs)
+      assert %Rating{} = rating
+      assert rating.amount == 43
+    end
+
+    test "update_rating/2 with invalid data returns error changeset" do
+      rating = rating_fixture()
+      assert {:error, %Ecto.Changeset{}} = Web.update_rating(rating, @invalid_attrs)
+      assert rating == Web.get_rating!(rating.id)
+    end
+
+    test "delete_rating/1 deletes the rating" do
+      rating = rating_fixture()
+      assert {:ok, %Rating{}} = Web.delete_rating(rating)
+      assert_raise Ecto.NoResultsError, fn -> Web.get_rating!(rating.id) end
+    end
+
+    test "change_rating/1 returns a rating changeset" do
+      rating = rating_fixture()
+      assert %Ecto.Changeset{} = Web.change_rating(rating)
+    end
+  end
 end

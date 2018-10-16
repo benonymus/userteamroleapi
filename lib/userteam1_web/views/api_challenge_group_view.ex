@@ -16,11 +16,11 @@ defmodule Userteam1Web.ApiChallengeGroupView do
       id: challenge_group.id,
       name: challenge_group.name,
       number_of_challanges: challenge_group.number_of_challanges,
-      avatar: render_image_url(challenge)
+      avatar: render_image_url(challenge_group)
     }
   end
 
-  defp render_image_url(chachallenge_groupllenge) do
+  defp render_image_url(challenge_group) do
     if challenge_group.avatar != nil do
       Userteam1Web.ChallengeGroupAvatar.url({challenge_group.avatar, challenge_group}, :original)
     else

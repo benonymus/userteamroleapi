@@ -14,6 +14,7 @@ defmodule Userteam1.Web.User do
     belongs_to(:role, Userteam1.Web.Role)
     belongs_to(:team, Userteam1.Web.Team)
     has_many(:recording, Userteam1.Web.Recording)
+    has_many(:rating, Userteam1.Web.Rating)
     has_many(:comment, Userteam1.Web.Comment)
 
     timestamps()

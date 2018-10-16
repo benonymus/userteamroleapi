@@ -7,6 +7,7 @@ defmodule Userteam1Web.RecordingController do
   alias Userteam1.Web.Recording
   alias Userteam1Web.ApiTeamController
   alias Userteam1.Web.Comment
+  alias Userteam1.Web.Rating
 
   action_fallback(Userteam1Web.FallbackController)
 
@@ -67,14 +68,23 @@ defmodule Userteam1Web.RecordingController do
     Repo.all(recording_query)
   end
 
-  def get_recording_list_for_mod(team_members) do
+  def get_recording_list_for_rating(team_members) do
     team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
+
+    rating_query =
+      from(
+        r in Rating,
+        select: r.recording_id
+      )
+
+    rating_recording_ids = Repo.all(rating_query)
+
     comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
 
     recording_query =
       from(
         r in Recording,
-        where: r.user_id in ^team_members_ids and is_nil(r.mod_score),
+        where: r.user_id in ^team_members_ids and not (r.id in ^rating_recording_ids),
         preload: [comment: ^comment_order_query],
         select: r
       )
@@ -82,27 +92,32 @@ defmodule Userteam1Web.RecordingController do
     Repo.all(recording_query)
   end
 
-  def get_recording_list_scored(user) do
-    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
-
+  def get_number_of_rated_recordings(user) do
     recording_query =
       from(
         r in Recording,
-        order_by: [desc: r.id],
-        where: r.user_id == ^user.id and not is_nil(r.mod_score),
-        preload: [:user, comment: ^comment_order_query],
-        select: r
+        where: r.user_id == ^user.id,
+        select: r.id
       )
 
-    Repo.all(recording_query)
+    user_recording_ids = Repo.all(recording_query)
+
+    rating_query =
+      from(
+        r in Rating,
+        where: r.recording_id in ^user_recording_ids,
+        select: count(r.id)
+      )
+
+    Repo.all(rating_query)
   end
 
   def get_mod_score_sum(user) do
     score_query =
       from(
-        r in Recording,
+        r in Rating,
         where: r.user_id == ^user.id,
-        select: sum(r.mod_score)
+        select: sum(r.amount)
       )
 
     Repo.all(score_query)
@@ -112,13 +127,11 @@ defmodule Userteam1Web.RecordingController do
     user = Guardian.Plug.current_resource(conn)
     team = Web.get_team!(user.team.id)
     team_members = ApiTeamController.get_team_members(team)
-    recordings = get_recording_list_for_mod(team_members)
+    recordings = get_recording_list_for_rating(team_members)
     render(conn, "index.json", recordings: recordings)
   end
 
   def create(conn, %{"recording" => recording_params}) do
-    IO.inspect(recording_params)
-
     recordings =
       get_recording_list_by_user_id_and_challenge_id(
         recording_params["user_id"],

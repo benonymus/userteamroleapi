@@ -5,10 +5,10 @@ defmodule Userteam1.Web.Recording do
 
   schema "recordings" do
     field(:path_to_recording, Userteam1Web.Recording.Type)
-    field(:mod_score, :integer)
     belongs_to(:user, Userteam1.Web.User)
     belongs_to(:challenge, Userteam1.Web.Challenge)
-    has_many(:comment, Userteam1.Web.Comment, on_delete: :nilify_all)
+    has_many(:comment, Userteam1.Web.Comment)
+    has_many(:rating, Userteam1.Web.Rating)
 
     timestamps()
   end
@@ -16,7 +16,7 @@ defmodule Userteam1.Web.Recording do
   @doc false
   def changeset(recording, attrs) do
     recording
-    |> cast(attrs, [:challenge_id, :user_id, :mod_score])
+    |> cast(attrs, [:challenge_id, :user_id])
     |> cast_attachments(attrs, [:path_to_recording])
     |> validate_required([:path_to_recording])
   end

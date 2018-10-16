@@ -1,8 +1,10 @@
 defmodule Userteam1Web.ApiChallengeController do
   use Userteam1Web, :controller
+  import Ecto.Query
 
   alias Userteam1.Repo
   alias Userteam1.Web
+  alias Userteam1.Web.Challenge
   alias Userteam1Web.ApiTeamController
   alias Userteam1Web.RecordingController
 

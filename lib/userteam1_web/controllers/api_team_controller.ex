@@ -71,7 +71,7 @@ defmodule Userteam1Web.ApiTeamController do
           role_id: user.role_id,
           avatar: user.avatar,
           mod_score_sum: RecordingController.get_mod_score_sum(user),
-          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+          num_of_recordings: RecordingController.get_number_of_rated_recordings(user)
         }
       end
 
@@ -99,7 +99,7 @@ defmodule Userteam1Web.ApiTeamController do
           role_id: user.role_id,
           avatar: user.avatar,
           mod_score_sum: RecordingController.get_mod_score_sum(user),
-          num_of_recordings: length(RecordingController.get_recording_list_scored(user))
+          num_of_recordings: RecordingController.get_number_of_rated_recordings(user)
         }
       end
 
