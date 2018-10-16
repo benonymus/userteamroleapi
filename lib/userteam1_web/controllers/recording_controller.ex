@@ -5,7 +5,6 @@ defmodule Userteam1Web.RecordingController do
   alias Userteam1.Repo
   alias Userteam1.Web
   alias Userteam1.Web.Recording
-  alias Userteam1Web.ApiTeamController
   alias Userteam1.Web.Comment
   alias Userteam1.Web.Rating
 
@@ -68,9 +67,7 @@ defmodule Userteam1Web.RecordingController do
     Repo.all(recording_query)
   end
 
-  def get_recording_list_for_rating(team_members) do
-    team_members_ids = Enum.map(team_members, fn team_member -> team_member.id end)
-
+  def get_recording_list_for_rating() do
     rating_query =
       from(
         r in Rating,
@@ -79,13 +76,10 @@ defmodule Userteam1Web.RecordingController do
 
     rating_recording_ids = Repo.all(rating_query)
 
-    comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
-
     recording_query =
       from(
         r in Recording,
-        where: r.user_id in ^team_members_ids and not (r.id in ^rating_recording_ids),
-        preload: [comment: ^comment_order_query],
+        where: r.id not in ^rating_recording_ids,
         select: r
       )
 
@@ -124,10 +118,7 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def index(conn, _params) do
-    user = Guardian.Plug.current_resource(conn)
-    team = Web.get_team!(user.team.id)
-    team_members = ApiTeamController.get_team_members(team)
-    recordings = get_recording_list_for_rating(team_members)
+    recordings = get_recording_list_for_rating()
     render(conn, "index.json", recordings: recordings)
   end
 
