@@ -8,7 +8,7 @@
   </li>
   <li>
     <strong>Avatar:</strong>
-    <%= if !@challenge.avatar do %>
+    <%= if !@challenge_group.avatar do %>
     no avatar set
     <% else %>
     <img src="<%= Userteam1Web.ChallengeGroupAvatar.url({@challenge_group.avatar, @challenge_group}) %>"/>
