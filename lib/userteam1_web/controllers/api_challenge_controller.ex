@@ -51,6 +51,9 @@ defmodule Userteam1Web.ApiChallengeController do
             else
               challenge.hint
             end,
+          text_input: challenge.text_input,
+          audio_input: challenge.audio_input,
+          photo_input: challenge.phot_input,
           difficulty: challenge.difficulty,
           avatar: challenge.avatar,
           days_left:

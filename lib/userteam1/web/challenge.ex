@@ -8,6 +8,9 @@ defmodule Userteam1.Web.Challenge do
     field(:avatar, Userteam1Web.ChallengeAvatar.Type)
     field(:description, :string)
     field(:hint, :string)
+    field(:text_input, :boolean)
+    field(:audio_input, :boolean)
+    field(:photo_input, :boolean)
     field(:difficulty, :integer)
     field(:due_date, :date)
     belongs_to(:challenge_group, Userteam1.Web.ChallengeGroup)
@@ -24,7 +27,10 @@ defmodule Userteam1.Web.Challenge do
       :challenge_group_id,
       :hint,
       :difficulty,
-      :due_date
+      :due_date,
+      :text_input,
+      :audio_input,
+      :photo_input
     ])
     |> cast_attachments(attrs, [:avatar])
     |> validate_required([:name, :difficulty])

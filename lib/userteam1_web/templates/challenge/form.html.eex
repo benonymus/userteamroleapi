@@ -42,6 +42,24 @@
   </div>
 
   <div class="form-group">
+    <%= label f, "Accept text", class: "control-label" %>
+    <%= checkbox f, :text_input, class: "form-control", checked: true%>
+    <%= error_tag f, :text_input %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, "Accept audio", class: "control-label" %>
+    <%= checkbox f, :audio_input, class: "form-control"%>
+    <%= error_tag f, :audio_input %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, "Accept photo", class: "control-label" %>
+    <%= checkbox f, :photo_input, class: "form-control"%>
+    <%= error_tag f, :photo_input %>
+  </div>
+
+  <div class="form-group">
   <%= label f, "Upload Icoon", class: "control-label" %>
   <%= file_input f, :avatar, class: "form-control" %>
   <%= error_tag f, :avatar %>
