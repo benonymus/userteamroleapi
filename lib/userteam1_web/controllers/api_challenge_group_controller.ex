@@ -21,20 +21,23 @@ defmodule Userteam1Web.ApiChallengeGroupController do
 
   def index(conn, _params) do
     challengegroups = Web.list_challengegroups()
+    IO.inspect(challengegroups)
 
     challenge_groups =
       for challengegroup <- challengegroups do
         num_of_challanges = number_of_challanges(challengegroup.id)
 
-        if !num_of_challanges == 0 do
+        if num_of_challanges != 0 do
           %{
             id: challengegroup.id,
             name: challengegroup.name,
             avatar: challengegroup.avatar,
-            number_of_challanges: num_of_challanges
+            number_of_challanges: List.first(num_of_challanges)
           }
         end
       end
+
+    IO.inspect(challenge_groups)
 
     render(conn, "index.json", challenge_groups: challenge_groups)
   end
