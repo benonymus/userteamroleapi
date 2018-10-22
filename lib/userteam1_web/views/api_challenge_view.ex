@@ -25,7 +25,7 @@ defmodule Userteam1Web.ApiChallengeView do
         end,
       text_input: challenge.text_input,
       audio_input: challenge.audio_input,
-      photo_input: challenge.phot_input,
+      photo_input: challenge.photo_input,
       difficulty: challenge.difficulty,
       avatar: render_image_url(challenge),
       days_left: challenge.days_left,
