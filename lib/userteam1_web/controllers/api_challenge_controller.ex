@@ -61,7 +61,7 @@ defmodule Userteam1Web.ApiChallengeController do
             end,
           text_input: challenge.text_input,
           audio_input: challenge.audio_input,
-          photo_input: challenge.phot_input,
+          photo_input: challenge.photo_input,
           difficulty: challenge.difficulty,
           avatar: challenge.avatar,
           days_left:
