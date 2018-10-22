@@ -21,12 +21,20 @@ defmodule Userteam1Web.ApiChallengeController do
     Repo.all(challenge_query)
   end
 
+  def get_challenges_expirations_by_challenge_group_id(challenge_group_id) do
+    challenge_query =
+      from(
+        c in Challenge,
+        where: c.challenge_group_id == ^challenge_group_id,
+        select: c.due_date
+      )
+
+    Repo.all(challenge_query)
+  end
+
   def get_challenge_list_by_challenge_group_id(conn, %{"challenge_group_id" => challenge_group_id}) do
     user = Guardian.Plug.current_resource(conn)
-    recording_list = RecordingController.get_recording_list(user)
-
-    recordings_challenge_ids =
-      Enum.map(recording_list, fn recording -> recording.challenge_id end)
+    recordings_challenge_ids = RecordingController.get_recording_list_challenge_ids(user)
 
     challenges = get_challenges_by_challenge_group_id(challenge_group_id)
 

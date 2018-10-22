@@ -25,6 +25,17 @@ defmodule Userteam1Web.RecordingController do
     Repo.all(recording_query)
   end
 
+  def get_recording_list_challenge_ids(user) do
+    recording_query =
+      from(
+        r in Recording,
+        where: r.user_id == ^user.id,
+        select: r.challenge_id
+      )
+
+    Repo.all(recording_query)
+  end
+
   def get_recording_list_by_user_id_and_challenge_id(user_id, challenge_id) do
     recording_query =
       from(

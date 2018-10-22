@@ -16,6 +16,8 @@ defmodule Userteam1Web.ApiChallengeGroupView do
       id: challenge_group.id,
       name: challenge_group.name,
       number_of_challanges: challenge_group.number_of_challanges,
+      done: challenge_group.done,
+      expired: challenge_group.expired,
       avatar: render_image_url(challenge_group)
     }
   end
