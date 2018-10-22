@@ -49,15 +49,8 @@ defmodule Userteam1Web.ApiChallengeGroupController do
             challengegroup.id
           )
 
-        checker = 0
-
-        for date <- challenges_expiartions do
-          xd = Date.compare(date, today)
-
-          if xd == :gt do
-            checker = checker + 1
-          end
-        end
+        checker =
+          Enum.all?(challenges_expiartions, fn date -> Date.compare(date, today) == :lt end)
 
         if num_of_challanges != 0 do
           %{
@@ -71,12 +64,7 @@ defmodule Userteam1Web.ApiChallengeGroupController do
               else
                 false
               end,
-            expired:
-              if checker == length(challenges_expiartions) do
-                true
-              else
-                false
-              end
+            expired: checker
           }
         end
       end
