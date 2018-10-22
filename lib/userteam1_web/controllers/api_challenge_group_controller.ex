@@ -41,23 +41,24 @@ defmodule Userteam1Web.ApiChallengeGroupController do
 
     challenge_groups =
       for challengegroup <- challengegroups do
-        num_of_challanges = number_of_challanges(challengegroup.id)
-        challenges_id_list = challanges_id_list(challengegroup.id)
+        num_of_challenges = List.first(number_of_challanges(challengegroup.id))
 
-        challenges_expiartions =
-          ApiChallengeController.get_challenges_expirations_by_challenge_group_id(
-            challengegroup.id
-          )
+        if num_of_challenges != 0 do
+          challenges_id_list = challanges_id_list(challengegroup.id)
 
-        checker =
-          Enum.all?(challenges_expiartions, fn date -> Date.compare(date, today) == :lt end)
+          challenges_expirations =
+            ApiChallengeController.get_challenges_expirations_by_challenge_group_id(
+              challengegroup.id
+            )
 
-        if num_of_challanges != 0 do
+          checker =
+            Enum.all?(challenges_expirations, fn date -> Date.compare(date, today) == :lt end)
+
           %{
             id: challengegroup.id,
             name: challengegroup.name,
             avatar: challengegroup.avatar,
-            number_of_challanges: List.first(num_of_challanges),
+            number_of_challanges: num_of_challenges,
             done:
               if challenges_id_list in recordings_challenge_ids do
                 true
@@ -69,6 +70,10 @@ defmodule Userteam1Web.ApiChallengeGroupController do
         end
       end
 
-    render(conn, "index.json", challenge_groups: challenge_groups)
+    challenge_groups_filtered = Enum.filter(challenge_groups, &(!is_nil(&1)))
+
+    IO.inspect(challenge_groups_filtered)
+
+    render(conn, "index.json", challenge_groups: challenge_groups_filtered)
   end
 end
