@@ -56,6 +56,7 @@ defmodule Userteam1Web.ChallengeGroupController do
 
     if challenge_group.avatar do
       {:ok, path} = Userteam1Web.ChallengeGroupAvatar.store(challenge_group.avatar)
+      IO.inspect(path)
       :ok = Userteam1Web.ChallengeGroupAvatar.delete(path)
     end
 
