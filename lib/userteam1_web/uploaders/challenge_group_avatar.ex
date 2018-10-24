@@ -30,13 +30,8 @@ defmodule Userteam1Web.ChallengeGroupAvatar do
   # end
 
   # Override the storage directory:
-  # def storage_dir(version, {file, scope}) do
-  #   "uploads/user/avatars/#{scope.id}"
-  # end
-
-  # Provide a default URL if there hasn't been a file uploaded
-  def default_url(_version, _scope) do
-    "uploads/challenge_groups/avatars/"
+  def storage_dir(_, {_, _}) do
+    "uploads/challengegroupavatar/"
   end
 
   # Specify custom headers for s3 objects
