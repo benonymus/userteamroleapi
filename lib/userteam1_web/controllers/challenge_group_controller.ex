@@ -53,6 +53,7 @@ defmodule Userteam1Web.ChallengeGroupController do
 
   def delete(conn, %{"id" => id}) do
     challenge_group = Web.get_challenge_group!(id)
+    Userteam1Web.ChallengeGroupAvatar.delete(challenge_group.avatar)
     {:ok, _challenge_group} = Web.delete_challenge_group(challenge_group)
 
     conn
