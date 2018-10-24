@@ -4,6 +4,8 @@ defmodule Userteam1.Web.Recording do
   import Ecto.Changeset
 
   schema "recordings" do
+    field(:name, :string)
+    field(:type, :string)
     field(:path_to_recording, Userteam1Web.Recording.Type)
     field(:text_input, :string)
     belongs_to(:user, Userteam1.Web.User)

@@ -53,7 +53,7 @@ defmodule Userteam1Web.ChallengeGroupController do
 
   def delete(conn, %{"id" => id}) do
     challenge_group = Web.get_challenge_group!(id)
-    # 
+    # to delete the files
     # if challenge_group.avatar do
     #   {:ok, path} = Userteam1Web.ChallengeGroupAvatar.store(challenge_group.avatar)
     #   IO.inspect(path)
