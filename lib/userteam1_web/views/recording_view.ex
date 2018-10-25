@@ -17,6 +17,7 @@ defmodule Userteam1Web.RecordingView do
       id: recording.id,
       recording_name: recording.name,
       recording_type: recording.type,
+      text_input: recording.text_input,
       path_to_recording: render_recording_url(recording)
     }
   end
@@ -27,6 +28,7 @@ defmodule Userteam1Web.RecordingView do
       user_id: recording.user_id,
       recording_name: recording.name,
       recording_type: recording.type,
+      text_input: recording.text_input,
       path_to_recording: render_recording_url(recording),
       recording_comments:
         if recording.comment == nil do
