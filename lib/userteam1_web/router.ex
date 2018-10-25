@@ -87,7 +87,7 @@ defmodule Userteam1Web.Router do
     post("/team_progress", ApiChallengeController, :team_progres)
     resources("/recordings", RecordingController)
     resources("/comments", CommentController, only: [:create])
-    resources("/ratings", CommentController, only: [:create])
+    resources("/ratings", RatingController, only: [:create])
     get("/info", ApiInfoController, :show)
   end
 
