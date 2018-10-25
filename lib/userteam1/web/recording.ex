@@ -19,7 +19,7 @@ defmodule Userteam1.Web.Recording do
   @doc false
   def changeset(recording, attrs) do
     recording
-    |> cast(attrs, [:challenge_id, :user_id, :text_input])
+    |> cast(attrs, [:name, :type, :challenge_id, :user_id, :text_input])
     |> cast_attachments(attrs, [:path_to_recording])
     |> validate_required([:challenge_id, :user_id])
   end
