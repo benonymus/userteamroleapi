@@ -25,13 +25,21 @@ defmodule Userteam1Web.ChallengeGroupAvatar do
   # end
 
   # Override the persisted filenames:
-  # def filename(version, _) do
-  #   version
+  # def filename(_version, {file, scope}) do
+  #   IO.puts("scope")
+  #   IO.inspect(scope)
+  #   file_name = Path.basename(file.file_name, Path.extname(file.file_name))
+  #   "#{scope.id}_#{file_name}"
   # end
 
   # Override the storage directory:
-  def storage_dir(_, {_, _}) do
-    "uploads/challengegroupavatar/"
+  def storage_dir(_, {_, scope}) do
+    folder = "#{UUID.uuid5(nil, scope.name)}"
+    "uploads/challengegroupavatar/#{folder}"
+  end
+
+  def remove(scope) do
+    storage_dir(nil, {nil, scope}) |> File.rm_rf!()
   end
 
   # Specify custom headers for s3 objects

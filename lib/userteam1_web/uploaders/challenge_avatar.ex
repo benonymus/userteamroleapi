@@ -30,8 +30,27 @@ defmodule Userteam1Web.ChallengeAvatar do
   # end
 
   # Override the storage directory:
-  def storage_dir(_, {_, _}) do
-    "uploads/challengeavatar/"
+  def storage_dir(_, {_, scope}) do
+    IO.inspect(scope)
+
+    cgi =
+      if scope.challenge_group_id == nil do
+        cgi = -1
+      else
+        scope.challenge_group_id
+      end
+
+    IO.inspect(cgi)
+    xd = scope.name <> to_string(scope.difficulty) <> to_string(cgi)
+
+    IO.inspect(xd)
+
+    folder = "#{UUID.uuid5(nil, xd)}"
+    "uploads/challengeavatar/#{folder}"
+  end
+
+  def remove(scope) do
+    storage_dir(nil, {nil, scope}) |> File.rm_rf!()
   end
 
   # Specify custom headers for s3 objects

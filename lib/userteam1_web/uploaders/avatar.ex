@@ -25,8 +25,13 @@ defmodule Userteam1Web.Avatar do
   # end
 
   # Override the storage directory:
-  def storage_dir(_, {_, _}) do
-    "uploads/useravatars/"
+  def storage_dir(_, {_, scope}) do
+    folder = "#{UUID.uuid5(nil, scope.name)}"
+    "uploads/useravatars/#{folder}"
+  end
+
+  def remove(scope) do
+    storage_dir(nil, {nil, scope}) |> File.rm_rf!()
   end
 
   # Provide a default URL if there hasn't been a file uploaded

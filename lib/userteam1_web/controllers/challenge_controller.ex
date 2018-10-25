@@ -4,6 +4,7 @@ defmodule Userteam1Web.ChallengeController do
   alias Userteam1.Repo
   alias Userteam1.Web
   alias Userteam1.Web.Challenge
+  alias Userteam1Web.ChallengeAvatar
 
   def index(conn, _params) do
     challenges = Web.list_challenges()
@@ -87,6 +88,11 @@ defmodule Userteam1Web.ChallengeController do
 
   def delete(conn, %{"id" => id}) do
     challenge = Web.get_challenge!(id)
+
+    if challenge.avatar do
+      ChallengeAvatar.remove(challenge)
+    end
+
     {:ok, _challenge} = Web.delete_challenge(challenge)
 
     conn

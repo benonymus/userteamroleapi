@@ -158,6 +158,10 @@ defmodule Userteam1Web.RecordingController do
     else
       # if there was any number of recordings delete them and then add the new one without effecting the score
       for recording <- recordings do
+        if recording.path_to_recording do
+          Userteam1Web.Recording.remove(recording)
+        end
+
         Web.delete_recording(recording)
       end
 
@@ -182,6 +186,10 @@ defmodule Userteam1Web.RecordingController do
 
   def delete(conn, %{"id" => id}) do
     recording = Web.get_recording!(id)
+
+    if recording.path_to_recording do
+      Userteam1Web.Recording.remove(recording)
+    end
 
     with {:ok, %Recording{}} <- Web.delete_recording(recording) do
       send_resp(conn, :no_content, "")

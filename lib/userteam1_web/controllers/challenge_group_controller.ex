@@ -3,6 +3,7 @@ defmodule Userteam1Web.ChallengeGroupController do
 
   alias Userteam1.Web
   alias Userteam1.Web.ChallengeGroup
+  alias Userteam1Web.ChallengeGroupAvatar
 
   def index(conn, _params) do
     challengegroups = Web.list_challengegroups()
@@ -54,11 +55,9 @@ defmodule Userteam1Web.ChallengeGroupController do
   def delete(conn, %{"id" => id}) do
     challenge_group = Web.get_challenge_group!(id)
     # to delete the files
-    # if challenge_group.avatar do
-    #   {:ok, path} = Userteam1Web.ChallengeGroupAvatar.store(challenge_group.avatar)
-    #   IO.inspect(path)
-    #   :ok = Userteam1Web.ChallengeGroupAvatar.delete(path)
-    # end
+    if challenge_group.avatar do
+      ChallengeGroupAvatar.remove(challenge_group)
+    end
 
     {:ok, _challenge_group} = Web.delete_challenge_group(challenge_group)
 

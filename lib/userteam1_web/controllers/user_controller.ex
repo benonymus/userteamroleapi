@@ -3,6 +3,7 @@ defmodule Userteam1Web.UserController do
   alias Userteam1.Repo
   alias Userteam1.Web
   alias Userteam1.Web.User
+  alias Userteam1Web.Avatar
 
   def index(conn, _params) do
     users = Web.list_users()
@@ -94,6 +95,11 @@ defmodule Userteam1Web.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Web.get_user!(id)
+
+    if user.avatar do
+      Avatar.remove(user)
+    end
+
     {:ok, _user} = Web.delete_user(user)
 
     conn
