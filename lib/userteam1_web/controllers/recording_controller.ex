@@ -118,12 +118,20 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_mod_score_sum(user) do
+    recording_query =
+      from(
+        r in Recording,
+        where: r.user_id == ^user.id,
+        select: r.id
+      )
+
+    user_recording_ids = Repo.all(recording_query)
+
     score_query =
       from(
         r in Rating,
-        where: r.user_id == ^user.id,
-        select: r
-        # select: sum(r.amount)
+        where: r.user_id == ^user_recording_ids,
+        select: sum(r.amount)
       )
 
     Repo.all(score_query)
