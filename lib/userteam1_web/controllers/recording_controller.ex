@@ -122,7 +122,8 @@ defmodule Userteam1Web.RecordingController do
       from(
         r in Rating,
         where: r.user_id == ^user.id,
-        select: sum(r.amount)
+        select: r
+        # select: sum(r.amount)
       )
 
     Repo.all(score_query)
