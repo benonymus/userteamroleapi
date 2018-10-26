@@ -127,15 +127,14 @@ defmodule Userteam1Web.RecordingController do
 
     user_recording_ids = Repo.all(recording_query)
 
-    score_query =
+    rating_query =
       from(
         r in Rating,
-        where: r.user_id in ^user_recording_ids,
-        select: r
-        # select: sum(r.amount)
+        where: r.recording_id in ^user_recording_ids,
+        select: sum(r.amount)
       )
 
-    Repo.all(score_query)
+    Repo.all(rating_query)
   end
 
   def index(conn, _params) do
