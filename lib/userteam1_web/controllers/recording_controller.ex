@@ -130,7 +130,7 @@ defmodule Userteam1Web.RecordingController do
     score_query =
       from(
         r in Rating,
-        where: r.user_id == ^user_recording_ids,
+        where: r.user_id in ^user_recording_ids,
         select: sum(r.amount)
       )
 
