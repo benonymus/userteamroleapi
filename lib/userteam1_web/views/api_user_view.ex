@@ -92,7 +92,7 @@ defmodule Userteam1Web.ApiUserView do
         if List.first(mod_score_sum) == nil do
           0
         else
-          div(List.first(mod_score_sum), num_of_recordings)
+          div(List.first(mod_score_sum), List.first(num_of_recordings))
         end,
       avatar: render_image_url(user),
       num_of_recordings: num_of_recordings
