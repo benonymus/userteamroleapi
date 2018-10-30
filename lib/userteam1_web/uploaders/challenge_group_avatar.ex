@@ -4,7 +4,7 @@ defmodule Userteam1Web.ChallengeGroupAvatar do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:thumb]
+  @versions [:original, :thumbnail]
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]
