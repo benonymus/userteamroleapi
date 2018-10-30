@@ -41,7 +41,7 @@
     <%= if !@challenge.avatar do %>
     no avatar set
     <% else %>
-    <img style="height: 400px;" src="<%= Userteam1Web.ChallengeAvatar.url({@challenge.avatar, @challenge}, :thumb) %>"/>
+    <img style="height: 400px;" src="<%= Userteam1Web.ChallengeAvatar.url({@challenge.avatar, @challenge}, :original) %>"/>
     <% end %>
   </li>
 

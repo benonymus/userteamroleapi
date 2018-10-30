@@ -24,7 +24,7 @@ defmodule Userteam1Web.ApiChallengeGroupView do
 
   defp render_image_url(challenge_group) do
     if challenge_group.avatar != nil do
-      Userteam1Web.ChallengeGroupAvatar.url({challenge_group.avatar, challenge_group}, :thumb)
+      Userteam1Web.ChallengeGroupAvatar.url({challenge_group.avatar, challenge_group}, :original)
     else
       nil
     end

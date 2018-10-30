@@ -4,7 +4,7 @@ defmodule Userteam1Web.ChallengeAvatar do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:original, :thumbnail]
+  @versions [:original]
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]
@@ -32,16 +32,7 @@ defmodule Userteam1Web.ChallengeAvatar do
   # Override the storage directory:
   def storage_dir(_, {_, scope}) do
     IO.inspect(scope)
-
-    cgi =
-      if scope.challenge_group_id == nil do
-        cgi = -1
-      else
-        scope.challenge_group_id
-      end
-
-    IO.inspect(cgi)
-    xd = scope.name <> to_string(scope.difficulty) <> to_string(cgi)
+    xd = scope.name <> to_string(scope.difficulty)
 
     IO.inspect(xd)
 
