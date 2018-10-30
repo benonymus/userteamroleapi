@@ -11,7 +11,7 @@
     <%= if !@challenge_group.avatar do %>
     no avatar set
     <% else %>
-    <img src="<%= Userteam1Web.ChallengeGroupAvatar.url({@challenge_group.avatar, @challenge_group, :thumbnail}) %>"/>
+    <img src="<%= Userteam1Web.ChallengeGroupAvatar.url({@challenge_group.avatar, @challenge_group, :thumb}) %>"/>
     <% end %>
   </li>
 
