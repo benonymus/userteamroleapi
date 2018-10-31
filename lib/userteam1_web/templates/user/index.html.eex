@@ -1,21 +1,21 @@
 <div>
-  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn", id: "selected-button" %></span>
+  <span id="empty-space"></span>
+  <span ><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn", id: "challenge-button" %></span>
+  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn", id: "challenge-button" %></span>
+  <span id="empty-space"></span>
+  <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
 </div>
 <h2>Listing Users</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Password</th>
-      <th>Role</th>
+      <th>Naam</th>
+      <th>Wachtwoord</th>
+      <th>GebruikersType</th>
       <th>Team</th>
-
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -37,13 +37,13 @@
 
 
       <td class="text-right">
-        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Bekijken", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Aanpassen", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Verwijderen", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New User", to: user_path(@conn, :new) %></span>
+<span><%= link "+ Nieuwe Gebruiker Toevoegen", to: user_path(@conn, :new) %></span>

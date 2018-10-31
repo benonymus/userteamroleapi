@@ -3,12 +3,12 @@
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Naam:</strong>
     <%= @user.name %>
   </li>
 
   <li>
-    <strong>Password:</strong>
+    <strong>Wachtwoord:</strong>
     <%= if !@user.password_hash do %>
     no password set!
     <% else %>
@@ -26,11 +26,11 @@
   </li>
 
   <li>
-    <strong>Role:</strong>
+    <strong>GebruikersType:</strong>
     <%= @user.role.name %>
   </li>
 
 </ul>
 
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
+<span><%= link "Aanpassen", to: user_path(@conn, :edit, @user) %></span>
 <span><%= link "Back", to: user_path(@conn, :index) %></span>

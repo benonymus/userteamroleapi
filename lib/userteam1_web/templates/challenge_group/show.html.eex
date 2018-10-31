@@ -3,7 +3,7 @@
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Naam:</strong>
     <%= @challenge_group.name %>
   </li>
   <li>
@@ -17,5 +17,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: challenge_group_path(@conn, :edit, @challenge_group) %></span>
+<span><%= link "Aanpassen", to: challenge_group_path(@conn, :edit, @challenge_group) %></span>
 <span><%= link "Back", to: challenge_group_path(@conn, :index) %></span>

@@ -6,3 +6,24 @@ body {
   background-position: bottom center;
   background-size: contain;
 }
+#empty-space {
+  width: 30px;
+  display: inline-block;
+}
+#challenge-button {
+  background-color: #2a2f8c;
+  color: white;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#selected-button {
+  background-color: #ffd400;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#default-button {
+  padding-left: 20px;
+  padding-right: 20px;
+}

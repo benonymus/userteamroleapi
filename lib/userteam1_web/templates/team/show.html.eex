@@ -3,11 +3,11 @@
 <ul>
 
   <li>
-    <strong>Name:</strong>
+    <strong>Naam:</strong>
     <%= @team.name %>
   </li>
 
 </ul>
 
-<span><%= link "Edit", to: team_path(@conn, :edit, @team) %></span>
+<span><%= link "Aanpassen", to: team_path(@conn, :edit, @team) %></span>
 <span><%= link "Back", to: team_path(@conn, :index) %></span>

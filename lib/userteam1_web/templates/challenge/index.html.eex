@@ -1,20 +1,22 @@
 <div>
-  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn" %></span>
-  <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+  <span id="empty-space"></span>
+  <span ><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn", id: "selected-button" %></span>
+  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn", id: "challenge-button" %></span>
+  <span id="empty-space"></span>
+  <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
 </div>
 <h2>Challenges</h2>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Challenege Group</th>
-      <th>Description</th>
-      <th>Due Date</th>
-      <th>Difficulty</th>
+      <th>Naam</th>
+      <th>Challenge Groep</th>
+      <th>Omschrijving</th>
+      <th>Deadline</th>
+      <th>Aantal Pepers</th>
 
       <th></th>
     </tr>
@@ -33,9 +35,9 @@
       <td><%= challenge.difficulty %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: challenge_path(@conn, :show, challenge), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: challenge_path(@conn, :edit, challenge), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: challenge_path(@conn, :delete, challenge), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Bekijken", to: challenge_path(@conn, :show, challenge), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Aanpassen", to: challenge_path(@conn, :edit, challenge), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Verwijderen", to: challenge_path(@conn, :delete, challenge), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>

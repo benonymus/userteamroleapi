@@ -6,13 +6,13 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
+    <%= label f, "Naam", class: "control-label" %>
     <%= text_input f, :name, class: "form-control", required: true, autofocus: true %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
-    <%= label f, :password, class: "control-label" %>
+    <%= label f, "Wachtwoord", class: "control-label" %>
     <%= text_input f, :password, class: "form-control" %>
     <%= error_tag f, :password %>
   </div>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :role_id, class: "control-label" %>
+    <%= label f, "GebruikersType", class: "control-label" %>
     <%= select f, :role_id, @roles, class: "form-control" %>
     <%= error_tag f, :role_id %>
   </div>

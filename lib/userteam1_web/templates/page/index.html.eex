@@ -1,10 +1,12 @@
+<div>
+  <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+  <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+  <span id="empty-space"></span>
+  <span ><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn", id: "challenge-button" %></span>
+  <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn", id: "challenge-button" %></span>
+  <span id="empty-space"></span>
+  <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn", id: "default-button" %></span>
+</div>
 <div class="jumbotron">
-  <div>
-    <span><%= link "Users", to: user_path(@conn, :index), class: "btn btn-default btn" %></span>
-    <span><%= link "Teams", to: team_path(@conn, :index), class: "btn btn-default btn" %></span>
-    <span><%= link "Challenges", to: challenge_path(@conn, :index), class: "btn btn-default btn" %></span>
-    <span><%= link "Challenge Groups", to: challenge_group_path(@conn, :index), class: "btn btn-default btn" %></span>
-    <span><%= link "Info", to: info_path(@conn, :index), class: "btn btn-default btn" %></span>
-  </div>
   <h2><%= "Klantgericht Omroepen!" %></h2>
 </div>
