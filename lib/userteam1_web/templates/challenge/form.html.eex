@@ -31,7 +31,7 @@
 
   <div class="form-group">
     <%= label f, "Deadline", class: "control-label" %>
-    <%= date_input f, :due_date, class: "form-control" %>
+    <%= date_input f, :due_date, class: "form-control", id: "test" %>
     <%= error_tag f, :due_date %>
   </div>
 

@@ -33,4 +33,5 @@
 </ul>
 
 <span><%= link "Aanpassen", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<span id="empty-space"></span>
+<span><%= link "Terug", to: user_path(@conn, :index) %></span>

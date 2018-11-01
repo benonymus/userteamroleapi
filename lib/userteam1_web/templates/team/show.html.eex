@@ -10,4 +10,5 @@
 </ul>
 
 <span><%= link "Aanpassen", to: team_path(@conn, :edit, @team) %></span>
-<span><%= link "Back", to: team_path(@conn, :index) %></span>
+<span id="empty-space"></span>
+<span><%= link "Terug", to: team_path(@conn, :index) %></span>

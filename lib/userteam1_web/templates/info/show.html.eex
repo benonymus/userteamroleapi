@@ -10,4 +10,5 @@
 </ul>
 
 <span><%= link "Aanpassen", to: info_path(@conn, :edit, @info) %></span>
-<span><%= link "Back", to: info_path(@conn, :index) %></span>
+<span id="empty-space"></span>
+<span><%= link "Terug", to: info_path(@conn, :index) %></span>

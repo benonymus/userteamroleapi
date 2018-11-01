@@ -46,6 +46,7 @@ defmodule Userteam1Web.Router do
 
     resources("/", SessionController, only: [:index, :create, :delete])
     get("/index", PageController, :index)
+    # for dev purposes only - temporary
     resources("/teams", TeamController)
     resources("/users", UserController)
     resources("/roles", RoleController)

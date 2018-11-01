@@ -48,4 +48,5 @@
 </ul>
 
 <span><%= link "Aanpassen", to: challenge_path(@conn, :edit, @challenge) %></span>
-<span><%= link "Back", to: challenge_path(@conn, :index) %></span>
+<span id="empty-space"></span>
+<span><%= link "Terug", to: challenge_path(@conn, :index) %></span>
