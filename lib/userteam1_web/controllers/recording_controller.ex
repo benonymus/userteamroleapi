@@ -82,7 +82,7 @@ defmodule Userteam1Web.RecordingController do
     rating_query =
       from(
         r in Rating,
-        where: r.user_id != ^user.id,
+        where: r.user_id == ^user.id,
         select: r.recording_id
       )
 
@@ -131,7 +131,7 @@ defmodule Userteam1Web.RecordingController do
     rating_query =
       from(
         r in Rating,
-        where: r.recording_id not in ^user_recording_ids,
+        where: r.recording_id in ^user_recording_ids,
         select: sum(r.amount)
       )
 
@@ -141,8 +141,6 @@ defmodule Userteam1Web.RecordingController do
   def index(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     recordings = get_recording_list_for_rating(user)
-    IO.puts("recordings")
-    IO.inspect(recordings)
     render(conn, "index.json", recordings: recordings)
   end
 
