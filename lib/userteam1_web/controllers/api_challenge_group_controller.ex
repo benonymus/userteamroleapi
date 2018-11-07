@@ -72,8 +72,6 @@ defmodule Userteam1Web.ApiChallengeGroupController do
 
     challenge_groups_filtered = Enum.filter(challenge_groups, &(!is_nil(&1)))
 
-    IO.inspect(challenge_groups_filtered)
-
     render(conn, "index.json", challenge_groups: challenge_groups_filtered)
   end
 end

@@ -32,6 +32,18 @@ defmodule Userteam1Web.ApiChallengeController do
     Repo.all(challenge_query)
   end
 
+  def get_challenges_without_challenge_group(conn, _challenge_params) do
+    challenge_query =
+      from(
+        c in Challenge,
+        where: c.challenge_group_id == "",
+        select: c
+      )
+
+    challenges_without_challenge_group = Repo.all(challenge_query)
+    render(conn, "index.json", challenges: challenges_without_challenge_group)
+  end
+
   def get_challenge_list_by_challenge_group_id(conn, %{"challenge_group_id" => challenge_group_id}) do
     user = Guardian.Plug.current_resource(conn)
     recordings_challenge_ids = RecordingController.get_recording_list_challenge_ids(user)
