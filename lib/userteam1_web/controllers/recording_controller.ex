@@ -141,6 +141,7 @@ defmodule Userteam1Web.RecordingController do
   def index(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     recordings = get_recording_list_for_rating(user)
+    IO.puts("recordings")
     IO.inspect(recordings)
     render(conn, "index.json", recordings: recordings)
   end
