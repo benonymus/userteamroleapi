@@ -131,7 +131,7 @@ defmodule Userteam1Web.RecordingController do
     rating_query =
       from(
         r in Rating,
-        where: r.recording_id in ^user_recording_ids,
+        where: r.recording_id not in ^user_recording_ids,
         select: sum(r.amount)
       )
 
