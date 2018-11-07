@@ -350,7 +350,7 @@ defmodule Userteam1.Web do
     challenges_query =
       from(
         c in Challenge,
-        order_by: [desc: c.id],
+        order_by: [desc: c.challenge_group_id],
         preload: [:challenge_group],
         select: c
       )
