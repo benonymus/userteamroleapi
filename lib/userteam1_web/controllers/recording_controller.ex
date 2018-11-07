@@ -79,10 +79,19 @@ defmodule Userteam1Web.RecordingController do
   end
 
   def get_recording_list_for_rating(user) do
+    rating_query =
+      from(
+        r in Rating,
+        where: r.user_id != ^user.id,
+        select: r.recording_id
+      )
+
+    rating_recording_ids = Repo.all(rating_query)
+
     recording_query =
       from(
         r in Recording,
-        where: r.user_id != ^user.id,
+        where: r.id not in ^rating_recording_ids and r.user_id != ^user.id,
         select: r
       )
 
