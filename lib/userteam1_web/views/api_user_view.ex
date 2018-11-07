@@ -17,7 +17,7 @@ defmodule Userteam1Web.ApiUserView do
         if List.first(user.mod_score) == nil do
           0
         else
-          div(List.first(user.mod_score), user.num_of_recordings)
+          div(List.first(user.mod_score), List.first(user.num_of_recordings))
         end
     }
   end
