@@ -77,6 +77,7 @@ defmodule Userteam1Web.ApiUserController do
       for recording <- recording_list do
         %{
           id: recording.id,
+          challenge_id: recording.challenge_id,
           user_id: recording.user_id,
           name: recording.name,
           type: recording.type,
