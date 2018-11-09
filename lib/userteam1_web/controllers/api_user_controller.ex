@@ -92,7 +92,7 @@ defmodule Userteam1Web.ApiUserController do
       "user_with_scores.json",
       user: user,
       team_score: team_score,
-      recording_list: recording_list,
+      recording_list: recording_list_with_rating,
       mod_score_sum: mod_score_sum,
       num_of_recordings: num_of_recordings
     )
@@ -100,7 +100,6 @@ defmodule Userteam1Web.ApiUserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Web.get_user!(id)
-    logged_user = Guardian.Plug.current_resource(conn)
 
     case Web.update_user(user, user_params) do
       {:ok, user} ->
