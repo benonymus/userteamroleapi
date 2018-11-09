@@ -36,7 +36,13 @@ defmodule Userteam1Web.RecordingView do
         else
           render_many(recording.comment, CommentView, "comment.json")
         end,
-      number_of_comments: length(recording.comment)
+      number_of_comments: length(recording.comment),
+      rating:
+        if recording.rating do
+          recording.rating.amount
+        else
+          0
+        end
     }
   end
 

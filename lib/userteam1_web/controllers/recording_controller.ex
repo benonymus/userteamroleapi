@@ -12,13 +12,14 @@ defmodule Userteam1Web.RecordingController do
 
   def get_recording_list(user) do
     comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
+    rating_query = from(r in Rating, where: r.user_id == ^user.id)
 
     recording_query =
       from(
         r in Recording,
         order_by: [desc: r.id],
         where: r.user_id == ^user.id,
-        preload: [:user, comment: ^comment_order_query],
+        preload: [:user, comment: ^comment_order_query, rating: ^rating_query],
         select: r
       )
 
