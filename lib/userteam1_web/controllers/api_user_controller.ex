@@ -87,6 +87,8 @@ defmodule Userteam1Web.ApiUserController do
         }
       end
 
+    IO.inspect(recording_list_with_rating)
+
     conn
     |> render(
       "user_with_scores.json",
