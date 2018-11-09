@@ -47,12 +47,12 @@ defmodule Userteam1Web.Router do
     resources("/", SessionController, only: [:index, :create, :delete])
     get("/index", PageController, :index)
     # for dev purposes only - temporary
-    resources("/teams", TeamController)
-    resources("/users", UserController)
-    resources("/roles", RoleController)
-    resources("/challenges", ChallengeController)
-    resources("/info", InfoController)
-    resources("/challengegroups", ChallengeGroupController)
+    # resources("/teams", TeamController)
+    # resources("/users", UserController)
+    # resources("/roles", RoleController)
+    # resources("/challenges", ChallengeController)
+    # resources("/info", InfoController)
+    # resources("/challengegroups", ChallengeGroupController)
   end
 
   scope "/admin", Userteam1Web do
