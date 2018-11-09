@@ -23,7 +23,7 @@ defmodule Userteam1Web.RecordingView do
   end
 
   def render("recording.json", %{recording: recording}) do
-    IO.inspect(recording.rating)
+    IO.inspect(recording.rating.amount)
 
     %{
       id: recording.id,
@@ -41,7 +41,7 @@ defmodule Userteam1Web.RecordingView do
       number_of_comments: length(recording.comment),
       rating:
         if recording.rating != [] do
-          List.first(recording.rating.amount)
+          recording.rating.amount
         else
           0
         end
