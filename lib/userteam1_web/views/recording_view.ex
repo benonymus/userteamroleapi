@@ -39,7 +39,7 @@ defmodule Userteam1Web.RecordingView do
       number_of_comments: length(recording.comment),
       rating:
         if recording.rating != [] do
-          recording.rating["amount"]
+          recording.rating
         else
           0
         end
