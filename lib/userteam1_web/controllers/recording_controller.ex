@@ -10,9 +10,9 @@ defmodule Userteam1Web.RecordingController do
 
   action_fallback(Userteam1Web.FallbackController)
 
-  def get_recording_list(user) do
+  def get_recording_list(user, logged_user) do
     comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
-    rating_query = from(r in Rating, where: r.user_id == ^user.id)
+    rating_query = from(r in Rating, where: r.user_id == ^logged_user.id)
 
     recording_query =
       from(

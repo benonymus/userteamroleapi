@@ -47,28 +47,29 @@ defmodule Userteam1Web.ApiUserController do
     render(conn, "index.json", users: users_with_scores)
   end
 
-  def show(conn, _params) do
-    user = Guardian.Plug.current_resource(conn)
-    team_score = ApiTeamController.get_team_score(user.team)
-    recording_list = RecordingController.get_recording_list(user)
-    mod_score_sum = RecordingController.get_mod_score_sum(user)
-    num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
-
-    conn
-    |> render(
-      "user_with_scores.json",
-      user: user,
-      team_score: team_score,
-      recording_list: recording_list,
-      mod_score_sum: mod_score_sum,
-      num_of_recordings: num_of_recordings
-    )
-  end
+  # def show(conn, _params) do
+  #   user = Guardian.Plug.current_resource(conn)
+  #   team_score = ApiTeamController.get_team_score(user.team)
+  #   recording_list = RecordingController.get_recording_list(user)
+  #   mod_score_sum = RecordingController.get_mod_score_sum(user)
+  #   num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
+  #
+  #   conn
+  #   |> render(
+  #     "user_with_scores.json",
+  #     user: user,
+  #     team_score: team_score,
+  #     recording_list: recording_list,
+  #     mod_score_sum: mod_score_sum,
+  #     num_of_recordings: num_of_recordings
+  #   )
+  # end
 
   def get_user_by_id(conn, %{"id" => id}) do
     user = Web.get_user!(id)
+    logged_user = Guardian.Plug.current_resource(conn)
     team_score = ApiTeamController.get_team_score(user.team)
-    recording_list = RecordingController.get_recording_list(user)
+    recording_list = RecordingController.get_recording_list(user, logged_user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
     num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 
@@ -85,11 +86,12 @@ defmodule Userteam1Web.ApiUserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Web.get_user!(id)
+    logged_user = Guardian.Plug.current_resource(conn)
 
     case Web.update_user(user, user_params) do
       {:ok, user} ->
         team_score = ApiTeamController.get_team_score(user.team)
-        recording_list = RecordingController.get_recording_list(user)
+        recording_list = RecordingController.get_recording_list(user, logged_user)
         mod_score_sum = RecordingController.get_mod_score_sum(user)
         num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 
