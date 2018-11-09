@@ -187,8 +187,10 @@ defmodule Userteam1Web.RecordingController do
         Web.delete_recording(recording)
       end
 
-      with {:ok, %Recording{}} <- Web.create_recording(recording_params) do
-        send_resp(conn, 200, [])
+      with {:ok, %Recording{} = recording} <- Web.create_recording(recording_params) do
+        conn
+        |> put_status(:created)
+        |> render("show.json", recording: recording)
       end
     end
   end
