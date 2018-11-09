@@ -36,7 +36,7 @@ defmodule Userteam1Web.ApiChallengeController do
     challenge_query =
       from(
         c in Challenge,
-        where: c.challenge_group_id == nil,
+        where: is_nil(c.challenge_group_id),
         select: c
       )
 
