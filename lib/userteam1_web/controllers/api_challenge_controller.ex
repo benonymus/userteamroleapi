@@ -32,7 +32,7 @@ defmodule Userteam1Web.ApiChallengeController do
     Repo.all(challenge_query)
   end
 
-  def get_challenges_without_challenge_group(conn, _challenge_params) do
+  defp get_challenges_without_challenge_group_id() do
     challenge_query =
       from(
         c in Challenge,
@@ -40,8 +40,57 @@ defmodule Userteam1Web.ApiChallengeController do
         select: c
       )
 
-    challenges_without_challenge_group = Repo.all(challenge_query)
-    render(conn, "index.json", challenges: challenges_without_challenge_group)
+    Repo.all(challenge_query)
+  end
+
+  def get_challenges_without_challenge_group(conn, _challenge_params) do
+    user = Guardian.Plug.current_resource(conn)
+    recordings_challenge_ids = RecordingController.get_recording_list_challenge_ids(user)
+
+    challenges = get_challenges_without_challenge_group_id()
+
+    today = Date.utc_today()
+
+    challenges_to_display =
+      for challenge <- challenges do
+        xd = Date.diff(challenge.due_date, today)
+
+        %{
+          id: challenge.id,
+          name: challenge.name,
+          description:
+            if challenge.description == nil || challenge.description == "" do
+              "no description"
+            else
+              challenge.description
+            end,
+          hint:
+            if challenge.hint == nil || challenge.hint == "" do
+              "no hints for this one friend :)"
+            else
+              challenge.hint
+            end,
+          text_input: challenge.text_input,
+          audio_input: challenge.audio_input,
+          photo_input: challenge.photo_input,
+          difficulty: challenge.difficulty,
+          avatar: challenge.avatar,
+          days_left:
+            if xd >= 0 do
+              xd
+            else
+              -1
+            end,
+          done_by_user:
+            if challenge.id in recordings_challenge_ids do
+              true
+            else
+              false
+            end
+        }
+      end
+
+    render(conn, "index.json", challenges: challenges_to_display)
   end
 
   def get_challenge_list_by_challenge_group_id(conn, %{"challenge_group_id" => challenge_group_id}) do

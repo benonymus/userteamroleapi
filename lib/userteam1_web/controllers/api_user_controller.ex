@@ -82,7 +82,7 @@ defmodule Userteam1Web.ApiUserController do
           type: recording.type,
           text_input: recording.text_input,
           path_to_recording: recording.path_to_recording,
-          comments: recording.comments,
+          comment: recording.comment,
           rating: RecordingController.get_recording_rating(recording.id, logged_user)
         }
       end
