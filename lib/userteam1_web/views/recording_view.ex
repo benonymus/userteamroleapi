@@ -40,7 +40,7 @@ defmodule Userteam1Web.RecordingView do
       rating:
         if recording.rating != [] do
           IO.inspect(recording.rating)
-          recording.rating.amount
+          recording.rating["amount"]
         else
           0
         end
