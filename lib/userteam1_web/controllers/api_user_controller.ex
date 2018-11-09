@@ -69,9 +69,23 @@ defmodule Userteam1Web.ApiUserController do
     user = Web.get_user!(id)
     logged_user = Guardian.Plug.current_resource(conn)
     team_score = ApiTeamController.get_team_score(user.team)
-    recording_list = RecordingController.get_recording_list(user, logged_user)
+    recording_list = RecordingController.get_recording_list(user)
     mod_score_sum = RecordingController.get_mod_score_sum(user)
     num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
+
+    recording_list_with_rating =
+      for recording <- recording_list do
+        %{
+          id: recording.id,
+          user_id: recording.user_id,
+          name: recording.name,
+          type: recording.type,
+          text_input: recording.text_input,
+          path_to_recording: recording.path_to_recording,
+          comments: recording.comment,
+          rating: RecordingController.get_recording_rating(recording.id, logged_user)
+        }
+      end
 
     conn
     |> render(
@@ -91,7 +105,7 @@ defmodule Userteam1Web.ApiUserController do
     case Web.update_user(user, user_params) do
       {:ok, user} ->
         team_score = ApiTeamController.get_team_score(user.team)
-        recording_list = RecordingController.get_recording_list(user, logged_user)
+        recording_list = RecordingController.get_recording_list(user)
         mod_score_sum = RecordingController.get_mod_score_sum(user)
         num_of_recordings = RecordingController.get_number_of_rated_recordings(user)
 

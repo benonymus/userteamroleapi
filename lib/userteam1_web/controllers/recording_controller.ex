@@ -10,20 +10,30 @@ defmodule Userteam1Web.RecordingController do
 
   action_fallback(Userteam1Web.FallbackController)
 
-  def get_recording_list(user, logged_user) do
+  def get_recording_list(user) do
     comment_order_query = from(c in Comment, order_by: c.inserted_at, preload: [:user])
-    rating_query = from(r in Rating, where: r.user_id == ^logged_user.id)
 
     recording_query =
       from(
         r in Recording,
         order_by: [desc: r.id],
         where: r.user_id == ^user.id,
-        preload: [:user, comment: ^comment_order_query, rating: ^rating_query],
+        preload: [:user, comment: ^comment_order_query],
         select: r
       )
 
     Repo.all(recording_query)
+  end
+
+  def get_recording_rating(recording_id, logged_user) do
+    rating_query =
+      from(
+        r in Rating,
+        where: r.user_id == ^logged_user.id and r.recording_id == ^recording_id,
+        select: r
+      )
+
+    Repo.all(rating_query)
   end
 
   def get_recording_list_challenge_ids(user) do
